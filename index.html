@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+<script>
+  const network = {
+    nodes: [
+      {
+        id: 1,
+        name: "A"
+      },
+      {
+        id: 2,
+        name: "B"
+      },
+      {
+        id: 3,
+        name: "C"
+      },
+      {
+        id: 4,
+        name: "D"
+      },
+      {
+        id: 5,
+        name: "E"
+      }
+    ],
+    links: [
+      {
+        source: 1,
+        target: 2
+      },
+      {
+        source: 1,
+        target: 3
+      },
+      {
+        source: 1,
+        target: 4
+      },
+      {
+        source: 2,
+        target: 0
+      }
+    ]
+  };
+
+  // set the dimensions and margins of the graph
+  //223,124 to middle
+  //211,114 data
+  var margin = { top: 0, right: 0, bottom: 0, left: 0 },
+    width = 400 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  var svg = d3
+    .select("#my_dataviz")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // Placement Algorithm here;
+  network.nodes.forEach(n => {
+    n.x = Math.random() * 300 - 150 + width / 2;
+    n.y = Math.random() * 300 - 150 + width / 2;
+  });
+
+  console.log(network);
+
+  var node = svg
+    .selectAll("circle")
+    .data(network.nodes)
+    .enter()
+    .append("circle")
+    .attr("r", 15)
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y)
+    .style("fill", "#69b3a2");
+
+  // Initialize the links
+  var link = svg
+    .selectAll("line")
+    .data(network.links)
+    .enter()
+    .append("line")
+    .style("stroke", "#aaa")
+    .attr("x1", d => network.nodes[d.source].x)
+    .attr("y1", d => network.nodes[d.source].y)
+    .attr("x2", d => network.nodes[d.target].x)
+    .attr("y2", d => network.nodes[d.target].y);
+
+  window.nodes = node;
+</script>
