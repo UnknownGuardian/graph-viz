@@ -1,0 +1,17 @@
+{
+  "graphName": "g1.json",
+  "evaluations": [
+    {
+      "func": "randomEval",
+      "score": 0.1307140303034222
+    },
+    {
+      "func": "thresholdEdgeCountEval",
+      "score": 1
+    },
+    {
+      "func": "smallEdgeEval",
+      "score": 0.9428090415820634
+    }
+  ]
+}
