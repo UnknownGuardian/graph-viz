@@ -94,6 +94,17 @@
     .attr("cy", d => d.y)
     .style("fill", "#69b3a2");
 
+  // draw in the middle of the graph
+  var node = svg
+    .selectAll("circle2") // what to call this set of elements
+    .data([{}])
+    .enter()
+    .append("circle") // the type of element to draw (a circle or a line or maybe rect or something, not sure what they support)
+    .attr("r", 5)
+    .attr("cx", d => 50)
+    .attr("cy", d => 50)
+    .style("fill", "#69b3a2");
+
 
 
   window.nodes = node;
