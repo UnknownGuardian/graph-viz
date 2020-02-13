@@ -2,7 +2,7 @@
   "name": "aesthetics",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^4.1.1",
