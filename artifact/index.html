@@ -8,44 +8,48 @@
 <div id="my_dataviz"></div>
 <script>
   const network = {
-    nodes: [
+    "nodes": [
       {
-        id: 1,
-        name: "A"
+        "id": 1,
+        "x": 0,
+        "y": 0
       },
       {
-        id: 2,
-        name: "B"
+        "id": 2,
+        "x": 100,
+        "y": 0
       },
       {
-        id: 3,
-        name: "C"
+        "id": 3,
+        "x": 100,
+        "y": 100
       },
       {
-        id: 4,
-        name: "D"
-      },
-      {
-        id: 5,
-        name: "E"
+        "id": 4,
+        "x": 0,
+        "y": 100
       }
     ],
-    links: [
+    "edges": [
       {
-        source: 1,
-        target: 2
+        "n1": 1,
+        "n2": 2
       },
       {
-        source: 1,
-        target: 3
+        "n1": 2,
+        "n2": 3
       },
       {
-        source: 1,
-        target: 4
+        "n1": 3,
+        "n2": 4
       },
       {
-        source: 2,
-        target: 0
+        "n1": 4,
+        "n2": 1
+      },
+      {
+        "n1": 3,
+        "n2": 1
       }
     ]
   };
@@ -66,13 +70,19 @@
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  // Placement Algorithm here;
-  network.nodes.forEach(n => {
-    n.x = Math.random() * 300 - 150 + width / 2;
-    n.y = Math.random() * 300 - 150 + width / 2;
-  });
-
   console.log(network);
+
+  // Initialize the links
+  var link = svg
+    .selectAll("line")
+    .data(network.edges)
+    .enter()
+    .append("line")
+    .style("stroke", "#aaa")
+    .attr("x1", d => { console.log(network.nodes, d); const selected = network.nodes.find(n => n.id == d.n1).x; console.log(selected); return selected })
+    .attr("y1", d => network.nodes.find(n => n.id == d.n1).y)
+    .attr("x2", d => network.nodes.find(n => n.id == d.n2).x)
+    .attr("y2", d => network.nodes.find(n => n.id == d.n2).y)
 
   var node = svg
     .selectAll("circle")
@@ -84,17 +94,7 @@
     .attr("cy", d => d.y)
     .style("fill", "#69b3a2");
 
-  // Initialize the links
-  var link = svg
-    .selectAll("line")
-    .data(network.links)
-    .enter()
-    .append("line")
-    .style("stroke", "#aaa")
-    .attr("x1", d => network.nodes[d.source].x)
-    .attr("y1", d => network.nodes[d.source].y)
-    .attr("x2", d => network.nodes[d.target].x)
-    .attr("y2", d => network.nodes[d.target].y);
+
 
   window.nodes = node;
 </script>
