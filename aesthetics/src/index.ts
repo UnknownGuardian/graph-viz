@@ -25,6 +25,8 @@ export type Node = {
   id: number;
   x: number;
   y: number;
+  degree: number;
+  connectedEdges: Array<Edge>;
 };
 export type Edge = {
   node1: Node;
@@ -54,7 +56,7 @@ export function preprocess(graphs: Array<GraphJSON>): Array<Graph> {
   return graphs.map(g => {
     const parsed: Graph = {
       name: g.fileName,
-      nodes: g.nodes.map(node => ({ ...node })), // shallow copy
+      nodes: g.nodes.map(node => ({ ...node, degree: 0, connectedEdges: [] })), // shallow copy
       edges: []
     };
     parsed.edges = g.edges.map(edge => {
@@ -63,25 +65,23 @@ export function preprocess(graphs: Array<GraphJSON>): Array<Graph> {
       const distance = distanceBetweenNodes(node1, node2);
       return { node1, node2, distance };
     });
+    parsed.nodes.forEach(node => {
+      node.connectedEdges = connectedEdges(parsed.edges, node);
+      node.degree = node.connectedEdges.length;
+    });
     return parsed;
   });
 }
 
 export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
-  const exportedEvaluations: Array<Function> = Object.values(
-    require("./evaluations")
-  );
-  const functions: Array<any> = exportedEvaluations.filter((x: Function) =>
-    x.name.endsWith("Eval")
-  );
   console.log(
-    `\tEvaluating graphs with ${functions.length} evaluator(s)`.green
+    `\tEvaluating graphs with ${evalFunctions.length} evaluator(s)`.green
   );
   return g.map(
     (graph): GraphEvaluation => {
       return {
         graphName: graph.name,
-        evaluations: functions.map(
+        evaluations: evalFunctions.map(
           (evalFunction): Evaluation => ({
             func: evalFunction.name,
             score: evalFunction(graph)
@@ -108,8 +108,8 @@ import "colors";
 import * as fs from "fs";
 import * as path from "path";
 import * as commander from "commander";
-import { distanceBetweenNodes } from "./util";
-import { Evaluation, GraphEvaluation } from "./evaluations";
+import { distanceBetweenNodes, degreeOfNode, connectedEdges } from "./util";
+import { Evaluation, GraphEvaluation, evalFunctions } from "./evaluations";
 
 if (require.main === module) {
   const program = new commander.Command();

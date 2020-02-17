@@ -2,16 +2,20 @@
   "graphName": "g1.json",
   "evaluations": [
     {
-      "func": "randomEval",
-      "score": 0.1307140303034222
+      "func": "random",
+      "score": 0.5638131606616508
     },
     {
-      "func": "thresholdEdgeCountEval",
+      "func": "thresholdEdgeCount",
       "score": 1
     },
     {
-      "func": "smallEdgeEval",
-      "score": 0.9428090415820634
+      "func": "smallEdge",
+      "score": 0
+    },
+    {
+      "func": "minimumAngle",
+      "score": 0.5625
     }
   ]
 }
