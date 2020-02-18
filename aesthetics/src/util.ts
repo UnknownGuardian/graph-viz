@@ -10,6 +10,11 @@ export function connectedEdges(edges: Array<Edge>, node: Node): Array<Edge> {
   return edges.filter(e => e.node1 == node || e.node2 == node);
 }
 
+export function angleOfEdge(node1: Node, node2: Node) {
+  const rad = Math.atan2(node1.y - node2.y, node1.x - node2.x);
+  return Math.abs(radToDeg(rad));
+}
+
 // in degrees, always positive between 0 and 180.
 export function angleBetweenEdges(
   pivot: Node,

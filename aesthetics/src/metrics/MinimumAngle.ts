@@ -1,7 +1,6 @@
 import { Metric } from "./Metric";
 import { angleBetweenEdges } from "../util";
 import { Node } from "../";
-import "colors";
 
 export class MinimumAngle extends Metric {
   calculate(): number {
