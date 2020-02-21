@@ -1,34 +1,55 @@
 import { Graph } from "..";
 import { MinimumAngle, MaximumEdgeLength } from "../metrics";
-import { EvaluationFunction } from ".";
+import { EvaluationFunction, Evaluation } from ".";
 
 /** Just randomly give a [0-1] return */
-export const random: EvaluationFunction = function random(g: Graph): number {
+/*export const random: EvaluationFunction = function random(g: Graph): number {
   return Math.random();
-};
+};*/
 
 /** Check if there is a threshold number of edges */
-export const thresholdEdgeCount: EvaluationFunction = function thresholdEdgeCount(
+export const thresholdEdgeCount: EvaluationFunction = (
   g: Graph
-): number {
-  const THRESHOLD = 5;
+): Evaluation => {
+  const THRESHOLD = g.edges.length;
   const length = g.edges.length;
-  if (length > THRESHOLD) return 0;
-  return length / THRESHOLD;
+  return {
+    name: "Edge Threshold",
+    score: length / THRESHOLD,
+    showEval: false,
+    metric: {
+      name: "Number of Edges",
+      value: length
+    }
+  };
 };
 
-export const smallEdge: EvaluationFunction = function smallEdge(
-  g: Graph
-): number {
-  const THRESHOLD = 15;
+export const smallEdge: EvaluationFunction = (g: Graph): Evaluation => {
+  const THRESHOLD = 100;
   const maxEdgeLength = new MaximumEdgeLength(g).calculate();
-  if (maxEdgeLength > THRESHOLD) return 0;
-  return maxEdgeLength / THRESHOLD;
+  let score = 1;
+  if (maxEdgeLength > THRESHOLD) score = 0;
+  else score = maxEdgeLength / THRESHOLD;
+
+  return {
+    name: "Has short edges",
+    score,
+    showEval: false,
+    metric: {
+      name: "Longest Edge",
+      value: maxEdgeLength
+    }
+  };
 };
 
-export const minimumAngle: EvaluationFunction = function minimumAngle(
-  g: Graph
-): number {
+export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
   const minAngle = new MinimumAngle(g).calculate();
-  return 1 - minAngle;
+  return {
+    name: "Minimum Angle",
+    score: 1 - minAngle,
+    metric: {
+      name: "Min Angle",
+      value: minAngle
+    }
+  };
 };

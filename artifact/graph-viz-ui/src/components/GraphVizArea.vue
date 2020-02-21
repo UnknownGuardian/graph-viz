@@ -8,7 +8,6 @@
 
 <script>
 import * as d3 from "d3"
-import { preprocess as preprocessAesthetics, evaluate as evalAesthetics } from "graph-viz-aesthetics"
 
 export default {
   name: "GraphVizArea",
@@ -24,7 +23,7 @@ export default {
     this.render();
   },
   methods: {
-    evaluate() {
+    getGraphJSON() {
       const nodes = [];
       d3.selectAll('circle').each(node => {
         nodes.push({
@@ -40,11 +39,7 @@ export default {
 
       const json = {nodes, edges}
       console.log("json", json);
-      const graphs = preprocessAesthetics([json]);
-      console.log("Graphs", graphs);
-      const evaluation = evalAesthetics(graphs)
-      console.log("evaluation", evaluation);
-
+      return json;
     },
     render() {
       const links = this.graphJSON.links.map(d => Object.create(d));
@@ -109,7 +104,8 @@ export default {
 
       simulation.on('end', () => {
         console.log("simulation ended");
-        this.evaluate();
+        const json = this.getGraphJSON();
+        this.$emit('eval', json);
       });
 
       window.d3 = d3;

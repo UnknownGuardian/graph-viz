@@ -77,19 +77,13 @@ export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
   console.log(
     `\tEvaluating graphs with ${evalFunctions.length} evaluator(s)`.green
   );
-  return g.map(
-    (graph): GraphEvaluation => {
-      return {
-        graphName: graph.name,
-        evaluations: evalFunctions.map(
-          (evalFunction): Evaluation => ({
-            func: evalFunction.name,
-            score: evalFunction(graph)
-          })
-        )
-      };
-    }
-  );
+  return g.map(graph => {
+    const evaluations = evalFunctions.map(f => f(graph));
+    return {
+      graphName: graph.name,
+      evaluations
+    };
+  });
 }
 
 function writeEvaluations(dir: string, e: Array<GraphEvaluation>) {
@@ -108,8 +102,8 @@ import "colors";
 import * as fs from "fs";
 import * as path from "path";
 import * as commander from "commander";
-import { distanceBetweenNodes, degreeOfNode, connectedEdges } from "./util";
-import { Evaluation, GraphEvaluation, evalFunctions } from "./evaluations";
+import { distanceBetweenNodes, connectedEdges } from "./util";
+import { GraphEvaluation, evalFunctions } from "./evaluations";
 
 if (require.main === module) {
   const program = new commander.Command();

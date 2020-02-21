@@ -14,55 +14,37 @@
     <h2 class="subtitle is-6">Version 0.0</h2>-->
 
     <div class="main">
-      <GraphVizArea />
+      <GraphVizArea @eval="evaluate" />
     </div>
 
     <div class="sidenav">
-      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Properties</h1>
+      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Total Score: {{score}}</h1>
+      
+      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Evaluators</h1>
       <table class="table is-hoverable is-fullwidth">
-        <tr>
-          <td>Total Edge Length</td>
-          <td>{{ totalEdgeLength }}</td>
-        </tr>
-        <tr>
-          <td>Line Variance</td>
-          <td>{{ lineVariance }}</td>
-        </tr>
-        <tr>
-          <td>Line Crossings</td>
-          <td>{{ lineCrossing }}</td>
-        </tr>
-        <tr>
-          <td>Node Minimum Distance</td>
-          <td>{{ nodeMinDist }}</td>
+        <tr v-for="ev in evaluations" :key="ev.name">
+          <td>{{ ev.name }}</td>
+          <td>{{ ev.score }}</td>
         </tr>
       </table>
 
       <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Metrics</h1>
       <table class="table is-hoverable is-fullwidth">
-        <tr>
-          <td>Metric 1</td>
-          <td>{{ 0 }}</td>
-        </tr>
-        <tr>
-          <td>Metric 2</td>
-          <td>{{ 0 }}</td>
-        </tr>
-        <tr>
-          <td>Metric 3</td>
-          <td>{{ 0 }}</td>
+        <tr v-for="m in metrics" :key="m.name" >
+          <td>{{ m.name}}</td>
+          <td>{{ m.value }}</td>
         </tr>
       </table>
     </div>
 
-    <!-- <PackChart :tweetData=loadData /> -->
   </div>
 </template>
 
 <script>
-// import * as d3 from "d3"
 
 import GraphVizArea from "./components/GraphVizArea.vue";
+import { preprocess as preprocessAesthetics, evaluate as evalAesthetics } from "graph-viz-aesthetics"
+
 
 export default {
   name: "App",
@@ -71,11 +53,26 @@ export default {
   },
   data() {
     return {
-      lineVariance: 0,
-      totalEdgeLength: 0,
-      lineCrossing: 0,
-      nodeMinDist: 0
+      score: 0,
+      metrics:[{name:"XX", value:0}],
+      evaluations:[{name:"YY", score:0}]
     };
+  },
+  methods: {
+    evaluate(json) {
+      console.log("App.evaluate(", json, ")")
+      const graphs = preprocessAesthetics([json]);
+      console.log("Graphs", graphs);
+      const evaluation = evalAesthetics(graphs)[0]
+      console.log("evaluation", evaluation);
+      const results = evaluation.evaluations;
+      this.evaluations = results.map(e => ({name:e.name, score:e.score}))
+      this.metrics = results.map(e => ({name:e.metric.name, value:e.metric.value}))
+      console.log("evaluations", this.evaluations)
+      console.log("metrics", this.metrics)
+
+      this.score = this.evaluations.reduce((a, b) => (a + b.score), 0) / this.evaluations.length
+    }
   }
 };
 </script>
