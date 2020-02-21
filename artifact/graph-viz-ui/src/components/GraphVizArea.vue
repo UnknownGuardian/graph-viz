@@ -6,64 +6,117 @@
   </div>
 </template>
 
-<!-- Load d3.js -->
-<!-- <script src="https://d3js.org/d3.v4.js"></script> -->
-
 <script>
-// import * as d3 from "d3"
+import * as d3 from "d3"
+import { preprocess as preprocessAesthetics, evaluate as evalAesthetics } from "graph-viz-aesthetics"
 
 export default {
   name: "GraphVizArea",
   props: {},
-  data() {}
+  
+  data() {
+    return {
+      graphJSON: {}
+    }
+  },
+  async mounted() {
+    this.graphJSON = await d3.json('./graph.json')
+    this.render();
+  },
+  methods: {
+    evaluate() {
+      const nodes = [];
+      d3.selectAll('circle').each(node => {
+        nodes.push({
+          id: node.id,
+          x:node.x,
+          y:node.y
+        })
+      })
+      const edges = this.graphJSON.links.map(link => ({
+        n1: link.source.id,
+        n2: link.target.id
+      }))
+
+      const json = {nodes, edges}
+      console.log("json", json);
+      const graphs = preprocessAesthetics([json]);
+      console.log("Graphs", graphs);
+      const evaluation = evalAesthetics(graphs)
+      console.log("evaluation", evaluation);
+
+    },
+    render() {
+      const links = this.graphJSON.links.map(d => Object.create(d));
+      const nodes = this.graphJSON.nodes.map(d => Object.create(d));
+
+      const svg = d3.select('#my_dataviz').append('svg')
+        .attr("viewBox", [0, 0, 600, 600]);
+        
+      const simulation = d3
+        .forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(600 / 2, 600 / 2));
+
+
+      const link = svg
+        .append("g")
+        .attr("stroke", "#999")
+        .attr("stroke-opacity", 0.6)
+        .selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("stroke-width", d => Math.sqrt(d.value))
+        .attr("stroke", "#aaa")
+
+      const node = svg
+        .append("g")
+        .selectAll("circle")
+        .data(nodes)
+        .join("circle")
+        .attr("r", 5)
+        .attr("fill", "#69b3a2");
+
+      node.append("title")
+      .text(d => d.id);
+
+      // draw in the middle of the graph
+      /*const center = svg
+        .selectAll("circle2") // what to call this set of elements
+        .data([{}])
+        .enter()
+        .append("circle") // the type of element to draw (a circle or a line or maybe rect or something, not sure what they support)
+        .attr("r", 5)
+        .attr("cx", () => 50)
+        .attr("cy", () => 50)
+        .style("fill", "#69b3a2");
+      */
+     
+      simulation.on("tick", () => {
+        link
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+
+        node
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+      });
+
+
+      simulation.on('end', () => {
+        console.log("simulation ended");
+        this.evaluate();
+      });
+
+      window.d3 = d3;
+    }
+  },
 };
 
-// const network = {
-//     "nodes": [
-//       {
-//         "id": 1,
-//         "x": 0,
-//         "y": 0
-//       },
-//       {
-//         "id": 2,
-//         "x": 100,
-//         "y": 0
-//       },
-//       {
-//         "id": 3,
-//         "x": 100,
-//         "y": 100
-//       },
-//       {
-//         "id": 4,
-//         "x": 0,
-//         "y": 100
-//       }
-//     ],
-//     "edges": [
-//       {
-//         "n1": 1,
-//         "n2": 2
-//       },
-//       {
-//         "n1": 2,
-//         "n2": 3
-//       },
-//       {
-//         "n1": 3,
-//         "n2": 4
-//       },
-//       {
-//         "n1": 4,
-//         "n2": 1
-//       },
-//       {
-//         "n1": 3,
-//         "n2": 1
-//       }
-//     ]
-//   };
 
 // // set the dimensions and margins of the graph
 // //223,124 to middle
@@ -73,53 +126,7 @@ export default {
 // var height = 400 - margin.top - margin.bottom;
 
 // // append the svg object to the body of the page
-// var svg = d3
-//   .select("#my_dataviz")
-//   .append("svg")
-//   .attr("width", width + margin.left + margin.right)
-//   .attr("height", height + margin.top + margin.bottom)
-//   .append("g")
-//   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// console.log(network);
-
-// // Initialize the links
-// var link = svg
-//   .selectAll("line")
-//   .data(network.edges)
-//   .enter()
-//   .append("line")
-//   .style("stroke", "#aaa")
-//   .attr("x1", d => {
-//     console.log(network.nodes, d);
-//     const selected = network.nodes.find(n => n.id == d.n1).x;
-//     console.log(selected);
-//     return selected;
-//   })
-//   .attr("y1", d => network.nodes.find(n => n.id == d.n1).y)
-//   .attr("x2", d => network.nodes.find(n => n.id == d.n2).x)
-//   .attr("y2", d => network.nodes.find(n => n.id == d.n2).y);
-
-// var node = svg
-//   .selectAll("circle")
-//   .data(network.nodes)
-//   .enter()
-//   .append("circle")
-//   .attr("r", 15)
-//   .attr("cx", d => d.x)
-//   .attr("cy", d => d.y)
-//   .style("fill", "#69b3a2");
-
-// // draw in the middle of the graph
-// var node = svg
-//   .selectAll("circle2") // what to call this set of elements
-//   .data([{}])
-//   .enter()
-//   .append("circle") // the type of element to draw (a circle or a line or maybe rect or something, not sure what they support)
-//   .attr("r", 5)
-//   .attr("cx", d => 50)
-//   .attr("cy", d => 50)
-//   .style("fill", "#69b3a2");
 
 // window.nodes = node;
 </script>
