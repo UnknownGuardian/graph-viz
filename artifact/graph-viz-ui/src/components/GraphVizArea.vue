@@ -15,11 +15,14 @@ export default {
   
   data() {
     return {
-      graphJSON: {}
+      graphJSON: {},
+      nodes:[],
+      count: 0,
+      simulation: null
     }
   },
   async mounted() {
-    this.graphJSON = await d3.json('./graph.json')
+    this.graphJSON = await d3.json('./graph2.json')
     this.render();
   },
   methods: {
@@ -38,21 +41,39 @@ export default {
       }))
 
       const json = {nodes, edges}
-      console.log("json", json);
       return json;
+    },
+    tryAnother() {
+      console.log("Trying another");
+      this.nodes.forEach(n => {
+        n.x = Math.random() * 200 - 100 + 300
+        n.y = Math.random() * 200 - 100 + 300
+      })
+      this.simulation.alpha(1).restart();
     },
     render() {
       const links = this.graphJSON.links.map(d => Object.create(d));
-      const nodes = this.graphJSON.nodes.map(d => Object.create(d));
+      const nodes = this.nodes = this.graphJSON.nodes.map(d => Object.create(d));
+
+      nodes.forEach(n => {
+        delete n.group;
+        n.x = Math.random() * 200 - 100 + 300
+        n.y = Math.random() * 200 - 100 + 300
+      })
+
+      links.forEach(l => {
+        delete l.value
+      })
+
 
       const svg = d3.select('#my_dataviz').append('svg')
         .attr("viewBox", [0, 0, 600, 600]);
         
-      const simulation = d3
+      this.simulation = d3
         .forceSimulation(nodes)
         .force("link", d3.forceLink(links).id(d => d.id))
         .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(600 / 2, 600 / 2));
+        .force("center", d3.forceCenter(600 / 2, 600 / 2))
 
 
       const link = svg
@@ -62,8 +83,11 @@ export default {
         .selectAll("line")
         .data(links)
         .join("line")
-        .attr("stroke-width", d => Math.sqrt(d.value))
-        .attr("stroke", "#aaa")
+        //.attr("stroke-width", d => Math.sqrt(d.value))
+        .attr("stroke", "#aaa");
+
+      const scale = d3.scaleOrdinal(d3.schemeCategory10);
+      const color = d => scale(d.group);
 
       const node = svg
         .append("g")
@@ -71,7 +95,7 @@ export default {
         .data(nodes)
         .join("circle")
         .attr("r", 5)
-        .attr("fill", "#69b3a2");
+        .attr("fill", color)//.attr("fill", "#69b3a2");
 
       node.append("title")
       .text(d => d.id);
@@ -87,8 +111,8 @@ export default {
         .attr("cy", () => 50)
         .style("fill", "#69b3a2");
       */
-     
-      simulation.on("tick", () => {
+      this.count = 0;
+      this.simulation.on("tick", () => {
         link
             .attr("x1", d => d.source.x)
             .attr("y1", d => d.source.y)
@@ -99,10 +123,19 @@ export default {
         node
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
+
+        this.count++;
+        if(this.count > 120){
+          this.simulation.stop();
+          console.log("simulation ended early");
+          const json = this.getGraphJSON();
+          this.$emit('eval', json);
+          this.count = 0;
+        }
       });
 
 
-      simulation.on('end', () => {
+      this.simulation.on('end', () => {
         console.log("simulation ended");
         const json = this.getGraphJSON();
         this.$emit('eval', json);

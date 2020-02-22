@@ -14,7 +14,7 @@
     <h2 class="subtitle is-6">Version 0.0</h2>-->
 
     <div class="main">
-      <GraphVizArea @eval="evaluate" />
+      <GraphVizArea @eval="evaluate" ref="viz" />
     </div>
 
     <div class="sidenav">
@@ -60,18 +60,14 @@ export default {
   },
   methods: {
     evaluate(json) {
-      console.log("App.evaluate(", json, ")")
       const graphs = preprocessAesthetics([json]);
-      console.log("Graphs", graphs);
       const evaluation = evalAesthetics(graphs)[0]
-      console.log("evaluation", evaluation);
       const results = evaluation.evaluations;
       this.evaluations = results.map(e => ({name:e.name, score:e.score}))
       this.metrics = results.map(e => ({name:e.metric.name, value:e.metric.value}))
-      console.log("evaluations", this.evaluations)
-      console.log("metrics", this.metrics)
 
       this.score = this.evaluations.reduce((a, b) => (a + b.score), 0) / this.evaluations.length
+      this.$refs.viz.tryAnother();
     }
   }
 };
