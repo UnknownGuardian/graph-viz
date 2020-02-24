@@ -1,5 +1,11 @@
 import { Graph } from "..";
-import { MinimumAngle, MaximumEdgeLength } from "../metrics";
+import {
+  MinimumAngle,
+  MaximumEdgeLength,
+  EdgeOrthagonality,
+  NodeOrthagonality,
+  TotalEdgeLength
+} from "../metrics";
 import { EvaluationFunction, Evaluation } from ".";
 
 /** Just randomly give a [0-1] return */
@@ -50,6 +56,42 @@ export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
     metric: {
       name: "Min Angle",
       value: minAngle
+    }
+  };
+};
+
+export const edgeOrth: EvaluationFunction = (g: Graph): Evaluation => {
+  const orth = new EdgeOrthagonality(g).calculate();
+  return {
+    name: "Edge Orthagonality",
+    score: orth,
+    metric: {
+      name: "Edge Orthagonality",
+      value: orth
+    }
+  };
+};
+
+export const nodeOrth: EvaluationFunction = (g: Graph): Evaluation => {
+  const orth = new NodeOrthagonality(g).calculate();
+  return {
+    name: "Node Orthagonality",
+    score: orth,
+    metric: {
+      name: "Node Orthagonality",
+      value: orth
+    }
+  };
+};
+
+export const edgeLength: EvaluationFunction = (g: Graph): Evaluation => {
+  const len = new TotalEdgeLength(g).calculate();
+  return {
+    name: "Total Edge Length",
+    score: len,
+    metric: {
+      name: "Total Edge Length",
+      value: len
     }
   };
 };
