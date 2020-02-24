@@ -1,10 +1,9 @@
 import { Graph } from "..";
 import {
   MinimumAngle,
-  MaximumEdgeLength,
   EdgeOrthagonality,
   NodeOrthagonality,
-  TotalEdgeLength
+  UpwardFlow
 } from "../metrics";
 import { EvaluationFunction, Evaluation } from ".";
 
@@ -14,7 +13,7 @@ import { EvaluationFunction, Evaluation } from ".";
 };*/
 
 /** Check if there is a threshold number of edges */
-export const thresholdEdgeCount: EvaluationFunction = (
+/*export const thresholdEdgeCount: EvaluationFunction = (
   g: Graph
 ): Evaluation => {
   const THRESHOLD = g.edges.length;
@@ -28,9 +27,9 @@ export const thresholdEdgeCount: EvaluationFunction = (
       value: length
     }
   };
-};
+};*/
 
-export const smallEdge: EvaluationFunction = (g: Graph): Evaluation => {
+/*export const smallEdge: EvaluationFunction = (g: Graph): Evaluation => {
   const THRESHOLD = 100;
   const maxEdgeLength = new MaximumEdgeLength(g).calculate();
   let score = 1;
@@ -46,7 +45,7 @@ export const smallEdge: EvaluationFunction = (g: Graph): Evaluation => {
       value: maxEdgeLength
     }
   };
-};
+};*/
 
 export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
   const minAngle = new MinimumAngle(g).calculate();
@@ -84,7 +83,19 @@ export const nodeOrth: EvaluationFunction = (g: Graph): Evaluation => {
   };
 };
 
-export const edgeLength: EvaluationFunction = (g: Graph): Evaluation => {
+export const upwardFlow: EvaluationFunction = (g: Graph): Evaluation => {
+  const flow = new UpwardFlow(g).calculate();
+  return {
+    name: "Upward Flow",
+    score: flow,
+    metric: {
+      name: "Upward Flow",
+      value: flow
+    }
+  };
+};
+
+/*export const edgeLength: EvaluationFunction = (g: Graph): Evaluation => {
   const len = new TotalEdgeLength(g).calculate();
   return {
     name: "Total Edge Length",
@@ -95,3 +106,4 @@ export const edgeLength: EvaluationFunction = (g: Graph): Evaluation => {
     }
   };
 };
+*/

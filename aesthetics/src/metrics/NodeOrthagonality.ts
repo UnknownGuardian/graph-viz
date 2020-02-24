@@ -10,11 +10,13 @@ export class NodeOrthagonality extends Metric {
     const left = this.getLeft();
     const right = this.getRight();
 
+
     const height = (top - bottom) / transform;
     const width = (right - left) / transform;
 
     // the availble grid-point intersections
-    const a = width * height;
+    const a = (width + 1) * (height + 1)
+
 
     return this.graph.nodes.length / a;
   }
@@ -42,6 +44,8 @@ export class NodeOrthagonality extends Metric {
       differences.push(Math.abs(edge.node1.y - edge.node2.y));
     });
 
-    return gcd(differences);
+    const noZeroDifferences = differences.filter(x => x != 0);
+
+    return gcd(noZeroDifferences);
   }
 }

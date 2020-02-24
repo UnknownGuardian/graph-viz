@@ -8,8 +8,7 @@ describe("@evaluations/EdgeOrthagonality", () => {
     let edgeorth: Graph;
     beforeEach(() => {
       const fixtures = [
-        require("../fixtures/edgeorth.json"),
-        require("../fixtures/symmetric.json")
+        require("../fixtures/edgeorth.json")
       ];
       const graphs = preprocess(fixtures);
       edgeorth = graphs[0];
