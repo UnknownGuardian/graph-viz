@@ -9,7 +9,6 @@ results-*/
 
 # locally built
 dist/
-data/
 
 # Runtime data
 pids

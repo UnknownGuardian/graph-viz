@@ -1,0 +1,19 @@
+{
+  "name": "driver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^4.1.1",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0"
+  },
+  "scripts": {
+    "start": "tsc -w --preserveWatchOutput"
+  },
+  "author": "",
+  "license": "ISC"
+}
