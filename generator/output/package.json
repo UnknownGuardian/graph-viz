@@ -1,0 +1,15 @@
+{
+  "name": "output",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gexf_to_json.js",
+  "dependencies": {
+    "xml2json": "^0.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
