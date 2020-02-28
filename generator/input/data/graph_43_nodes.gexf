@@ -1,0 +1,145 @@
+<gexf>
+     <graph>
+          <nodes>
+               <node id="Valjean"></node>
+               <node id="Marguerite"></node>
+               <node id="Fantine"></node>
+               <node id="Mme.Thenardier"></node>
+               <node id="Thenardier"></node>
+               <node id="Cosette"></node>
+               <node id="Javert"></node>
+               <node id="Fauchelevent"></node>
+               <node id="Bamatabois"></node>
+               <node id="Perpetue"></node>
+               <node id="Simplice"></node>
+               <node id="Champmathieu"></node>
+               <node id="Brevet"></node>
+               <node id="Chenildieu"></node>
+               <node id="Pontmercy"></node>
+               <node id="Eponine"></node>
+               <node id="Anzelma"></node>
+               <node id="MotherInnocent"></node>
+               <node id="Gribier"></node>
+               <node id="Gavroche"></node>
+               <node id="Gillenormand"></node>
+               <node id="Magnon"></node>
+               <node id="Mlle.Gillenormand"></node>
+               <node id="Mme.Pontmercy"></node>
+               <node id="Marius"></node>
+               <node id="BaronessT"></node>
+               <node id="Mabeuf"></node>
+               <node id="Enjolras"></node>
+               <node id="Combeferre"></node>
+               <node id="Prouvaire"></node>
+               <node id="Feuilly"></node>
+               <node id="Courfeyrac"></node>
+               <node id="Bahorel"></node>
+               <node id="Bossuet"></node>
+               <node id="Joly"></node>
+               <node id="Grantaire"></node>
+               <node id="Gueulemer"></node>
+               <node id="Babet"></node>
+               <node id="Claquesous"></node>
+               <node id="Montparnasse"></node>
+               <node id="Toussaint"></node>
+               <node id="Brujon"></node>
+               <node id="Mme.Hucheloup"></node>
+          </nodes>
+          <edges>
+               <edge id="0" source="Marguerite" target="Valjean"></edge>
+               <edge id="1" source="Fantine" target="Marguerite"></edge>
+               <edge id="2" source="Fantine" target="Valjean"></edge>
+               <edge id="3" source="Mme.Thenardier" target="Fantine"></edge>
+               <edge id="4" source="Mme.Thenardier" target="Valjean"></edge>
+               <edge id="5" source="Thenardier" target="Mme.Thenardier"></edge>
+               <edge id="6" source="Thenardier" target="Fantine"></edge>
+               <edge id="7" source="Thenardier" target="Valjean"></edge>
+               <edge id="8" source="Cosette" target="Mme.Thenardier"></edge>
+               <edge id="9" source="Cosette" target="Valjean"></edge>
+               <edge id="10" source="Cosette" target="Thenardier"></edge>
+               <edge id="11" source="Javert" target="Valjean"></edge>
+               <edge id="12" source="Javert" target="Fantine"></edge>
+               <edge id="13" source="Javert" target="Cosette"></edge>
+               <edge id="14" source="Fauchelevent" target="Valjean"></edge>
+               <edge id="15" source="Fauchelevent" target="Javert"></edge>
+               <edge id="16" source="Bamatabois" target="Fantine"></edge>
+               <edge id="17" source="Bamatabois" target="Javert"></edge>
+               <edge id="18" source="Bamatabois" target="Valjean"></edge>
+               <edge id="19" source="Perpetue" target="Fantine"></edge>
+               <edge id="20" source="Simplice" target="Perpetue"></edge>
+               <edge id="21" source="Simplice" target="Javert"></edge>
+               <edge id="22" source="Champmathieu" target="Bamatabois"></edge>
+               <edge id="23" source="Brevet" target="Bamatabois"></edge>
+               <edge id="24" source="Chenildieu" target="Bamatabois"></edge>
+               <edge id="25" source="Pontmercy" target="Thenardier"></edge>
+               <edge id="26" source="Eponine" target="Mme.Thenardier"></edge>
+               <edge id="27" source="Eponine" target="Thenardier"></edge>
+               <edge id="28" source="Anzelma" target="Eponine"></edge>
+               <edge id="29" source="Anzelma" target="Mme.Thenardier"></edge>
+               <edge id="30" source="MotherInnocent" target="Fauchelevent"></edge>
+               <edge id="31" source="MotherInnocent" target="Valjean"></edge>
+               <edge id="32" source="Gribier" target="Fauchelevent"></edge>
+               <edge id="33" source="Gavroche" target="Thenardier"></edge>
+               <edge id="34" source="Gillenormand" target="Cosette"></edge>
+               <edge id="35" source="Magnon" target="Gillenormand"></edge>
+               <edge id="36" source="Magnon" target="Mme.Thenardier"></edge>
+               <edge id="37" source="Mlle.Gillenormand" target="Gillenormand"></edge>
+               <edge id="38" source="Mlle.Gillenormand" target="Valjean"></edge>
+               <edge id="39" source="Mme.Pontmercy" target="Mlle.Gillenormand"></edge>
+               <edge id="40" source="Mme.Pontmercy" target="Pontmercy"></edge>
+               <edge id="41" source="Marius" target="Mlle.Gillenormand"></edge>
+               <edge id="42" source="Marius" target="Gillenormand"></edge>
+               <edge id="43" source="Marius" target="Valjean"></edge>
+               <edge id="44" source="BaronessT" target="Gillenormand"></edge>
+               <edge id="45" source="BaronessT" target="Marius"></edge>
+               <edge id="46" source="Mabeuf" target="Marius"></edge>
+               <edge id="47" source="Mabeuf" target="Eponine"></edge>
+               <edge id="48" source="Enjolras" target="Marius"></edge>
+               <edge id="49" source="Enjolras" target="Mabeuf"></edge>
+               <edge id="50" source="Enjolras" target="Valjean"></edge>
+               <edge id="51" source="Combeferre" target="Enjolras"></edge>
+               <edge id="52" source="Combeferre" target="Marius"></edge>
+               <edge id="53" source="Combeferre" target="Mabeuf"></edge>
+               <edge id="54" source="Prouvaire" target="Gavroche"></edge>
+               <edge id="55" source="Feuilly" target="Mabeuf"></edge>
+               <edge id="56" source="Feuilly" target="Marius"></edge>
+               <edge id="57" source="Courfeyrac" target="Marius"></edge>
+               <edge id="58" source="Courfeyrac" target="Enjolras"></edge>
+               <edge id="59" source="Courfeyrac" target="Prouvaire"></edge>
+               <edge id="60" source="Bahorel" target="Combeferre"></edge>
+               <edge id="61" source="Bahorel" target="Prouvaire"></edge>
+               <edge id="62" source="Bahorel" target="Marius"></edge>
+               <edge id="63" source="Bossuet" target="Marius"></edge>
+               <edge id="64" source="Bossuet" target="Courfeyrac"></edge>
+               <edge id="65" source="Bossuet" target="Combeferre"></edge>
+               <edge id="66" source="Joly" target="Bahorel"></edge>
+               <edge id="67" source="Joly" target="Bossuet"></edge>
+               <edge id="68" source="Joly" target="Mabeuf"></edge>
+               <edge id="69" source="Joly" target="Marius"></edge>
+               <edge id="70" source="Grantaire" target="Bossuet"></edge>
+               <edge id="71" source="Grantaire" target="Enjolras"></edge>
+               <edge id="72" source="Grantaire" target="Prouvaire"></edge>
+               <edge id="73" source="Gueulemer" target="Thenardier"></edge>
+               <edge id="74" source="Gueulemer" target="Eponine"></edge>
+               <edge id="75" source="Babet" target="Thenardier"></edge>
+               <edge id="76" source="Babet" target="Gueulemer"></edge>
+               <edge id="77" source="Babet" target="Valjean"></edge>
+               <edge id="78" source="Claquesous" target="Thenardier"></edge>
+               <edge id="79" source="Claquesous" target="Babet"></edge>
+               <edge id="80" source="Claquesous" target="Eponine"></edge>
+               <edge id="81" source="Montparnasse" target="Javert"></edge>
+               <edge id="82" source="Montparnasse" target="Babet"></edge>
+               <edge id="83" source="Montparnasse" target="Gueulemer"></edge>
+               <edge id="84" source="Montparnasse" target="Thenardier"></edge>
+               <edge id="85" source="Toussaint" target="Cosette"></edge>
+               <edge id="86" source="Toussaint" target="Javert"></edge>
+               <edge id="87" source="Toussaint" target="Valjean"></edge>
+               <edge id="88" source="Brujon" target="Babet"></edge>
+               <edge id="89" source="Brujon" target="Gueulemer"></edge>
+               <edge id="90" source="Mme.Hucheloup" target="Bossuet"></edge>
+               <edge id="91" source="Mme.Hucheloup" target="Joly"></edge>
+               <edge id="92" source="Mme.Hucheloup" target="Gavroche"></edge>
+               <edge id="93" source="Mme.Hucheloup" target="Enjolras"></edge>
+          </edges>
+     </graph>
+</gexf>
