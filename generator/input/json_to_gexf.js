@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 if (!process.argv[2]) {
   throw new Error('Need the path to the graph you are going to change')
 }
