@@ -4,7 +4,7 @@
 export type GraphJSON = {
   fileName: string;
   nodes: Array<{ id: number; x: number; y: number }>;
-  edges: Array<{ n1: number; n2: number }>;
+  edges: Array<{ source: number; target: number }>;
 };
 
 /**
@@ -35,10 +35,10 @@ export type Edge = {
 };
 
 function createGraphsFromDir(dir: string): Array<Graph> {
-  const actualDir = path.join(__dirname, "..", dir);
+  const actualDir = path.isAbsolute(dir) ? dir : path.join(__dirname, "..", dir);
   console.log("\tLoading from ".green, actualDir);
 
-  const files = fs.readdirSync(actualDir);
+  const files = fs.readdirSync(actualDir).filter(x => x.endsWith('.json'));
   console.log(`\tFound ${files.length} graph(s)`.green);
 
   // load them into memory
@@ -60,8 +60,8 @@ export function preprocess(graphs: Array<GraphJSON>): Array<Graph> {
       edges: []
     };
     parsed.edges = g.edges.map(edge => {
-      const node1: Node = parsed.nodes.find(node => node.id == edge.n1) as Node;
-      const node2: Node = parsed.nodes.find(node => node.id == edge.n2) as Node;
+      const node1: Node = parsed.nodes.find(node => node.id == edge.source) as Node;
+      const node2: Node = parsed.nodes.find(node => node.id == edge.target) as Node;
       const distance = distanceBetweenNodes(node1, node2);
       return { node1, node2, distance };
     });
@@ -74,6 +74,7 @@ export function preprocess(graphs: Array<GraphJSON>): Array<Graph> {
 }
 
 export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
+  const evalFunctions: Function[] = Object.values(require('./evaluations'))
   console.log(
     `\tEvaluating graphs with ${evalFunctions.length} evaluator(s)`.green
   );
@@ -87,7 +88,7 @@ export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
 }
 
 function writeEvaluations(dir: string, e: Array<GraphEvaluation>) {
-  const actualDir = path.join(__dirname, "..", dir);
+  const actualDir = path.isAbsolute(dir) ? dir : path.join(__dirname, "..", dir);
   console.log("\tWriting to".green, actualDir);
   e.forEach(evaluation => {
     fs.writeFileSync(
@@ -103,7 +104,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as commander from "commander";
 import { distanceBetweenNodes, connectedEdges } from "./util";
-import { GraphEvaluation, evalFunctions } from "./evaluations";
+import { GraphEvaluation } from "./evaluations";
 
 if (require.main === module) {
   const program = new commander.Command();

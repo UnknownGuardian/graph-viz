@@ -20,6 +20,4 @@ export type Evaluation = {
 };
 
 // grab a list of the evaluation functions, but toss them into an array.
-import * as funcs from "./functions";
-const evalFunctions: EvaluationFunction[] = Object.values(funcs);
-export { evalFunctions };
+export * from "./functions";
