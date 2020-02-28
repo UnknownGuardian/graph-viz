@@ -29,5 +29,5 @@ node json_to_gexf.js PATH_TO_JSON_GRAPH_HERE
 
 For example, this command will pipe the result into another file:
 ```
-node json_to_gexf.js ./data/graph2.json > ./data/graph2.gexf
+node json_to_gexf.js ./data/graph_43_nodes^Cson > ./data/graph_43_nodes.gexf
 ```
