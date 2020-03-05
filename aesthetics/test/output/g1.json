@@ -1,21 +1,41 @@
 {
   "graphName": "g1.json",
+  "score": 0.8376483456376682,
   "evaluations": [
     {
-      "func": "random",
-      "score": 0.5638131606616508
+      "name": "Minimum Edge Length",
+      "score": 1,
+      "weight": 0.1
     },
     {
-      "func": "thresholdEdgeCount",
-      "score": 1
+      "name": "Minimum Edge Length",
+      "score": 0.05398345637668168,
+      "weight": 0.1
     },
     {
-      "func": "smallEdge",
-      "score": 0
+      "name": "Minimum Angle",
+      "score": 0.5625,
+      "weight": 0.1
     },
     {
-      "func": "minimumAngle",
-      "score": 0.5625
+      "name": "Edge Orthagonality",
+      "score": 0.8,
+      "weight": 0.1
+    },
+    {
+      "name": "Node Orthagonality",
+      "score": 1,
+      "weight": 0.2
+    },
+    {
+      "name": "Upward Flow",
+      "score": 0.6,
+      "weight": 0.01
+    },
+    {
+      "name": "Edge Crossings",
+      "score": 1,
+      "weight": 0.39
     }
   ]
 }

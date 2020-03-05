@@ -3,59 +3,40 @@ import {
   MinimumAngle,
   EdgeOrthagonality,
   NodeOrthagonality,
-  UpwardFlow
+  UpwardFlow,
+  EdgeCrossings,
+  MinimumEdgeLength,
+  EdgeLengthVariance
 } from "../metrics";
 import { EvaluationFunction, Evaluation } from ".";
 
-/** Just randomly give a [0-1] return */
-/*export const random: EvaluationFunction = function random(g: Graph): number {
-  return Math.random();
-};*/
-
-/** Check if there is a threshold number of edges */
-/*export const thresholdEdgeCount: EvaluationFunction = (
+export const minEdgeLength: EvaluationFunction = (g: Graph): Evaluation => {
+  const threshold = 5;
+  const value = new MinimumEdgeLength(g).calculate();
+  const score = value > threshold ? 1 : 0;
+  return {
+    name: "Minimum Edge Length",
+    score,
+    weight: 0.1
+  };
+};
+export const edgeLengthVariance: EvaluationFunction = (
   g: Graph
 ): Evaluation => {
-  const THRESHOLD = g.edges.length;
-  const length = g.edges.length;
+  const value = new EdgeLengthVariance(g).calculate();
+  const score = 1 / value;
   return {
-    name: "Edge Threshold",
-    score: length / THRESHOLD,
-    showEval: false,
-    metric: {
-      name: "Number of Edges",
-      value: length
-    }
-  };
-};*/
-
-/*export const smallEdge: EvaluationFunction = (g: Graph): Evaluation => {
-  const THRESHOLD = 100;
-  const maxEdgeLength = new MaximumEdgeLength(g).calculate();
-  let score = 1;
-  if (maxEdgeLength > THRESHOLD) score = 0;
-  else score = maxEdgeLength / THRESHOLD;
-
-  return {
-    name: "Has short edges",
+    name: "Minimum Edge Length",
     score,
-    showEval: false,
-    metric: {
-      name: "Longest Edge",
-      value: maxEdgeLength
-    }
+    weight: 0.1
   };
-};*/
-
+};
 export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
   const minAngle = new MinimumAngle(g).calculate();
   return {
     name: "Minimum Angle",
     score: 1 - minAngle,
-    metric: {
-      name: "Min Angle",
-      value: minAngle
-    }
+    weight: 0.1
   };
 };
 
@@ -64,10 +45,7 @@ export const edgeOrth: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Edge Orthagonality",
     score: orth,
-    metric: {
-      name: "Edge Orthagonality",
-      value: orth
-    }
+    weight: 0.1
   };
 };
 
@@ -76,10 +54,7 @@ export const nodeOrth: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Node Orthagonality",
     score: orth,
-    metric: {
-      name: "Node Orthagonality",
-      value: orth
-    }
+    weight: 0.2
   };
 };
 
@@ -88,10 +63,15 @@ export const upwardFlow: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Upward Flow",
     score: flow,
-    metric: {
-      name: "Upward Flow",
-      value: flow
-    }
+    weight: 0.01
+  };
+};
+export const edgeCrossings: EvaluationFunction = (g: Graph): Evaluation => {
+  const crossings = new EdgeCrossings(g).calculate();
+  return {
+    name: "Edge Crossings",
+    score: 1 - crossings,
+    weight: 0.39
   };
 };
 

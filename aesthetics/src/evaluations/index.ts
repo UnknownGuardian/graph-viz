@@ -7,16 +7,13 @@ import { Graph } from "..";
 export type EvaluationFunction = (g: Graph) => Evaluation;
 export type GraphEvaluation = {
   graphName: string;
+  score: number;
   evaluations: Array<Evaluation>;
 };
 export type Evaluation = {
   name: string;
   score: number;
-  metric?: {
-    name: string;
-    value: number;
-  };
-  [key: string]: any;
+  weight: number;
 };
 
 // grab a list of the evaluation functions, but toss them into an array.
