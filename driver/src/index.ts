@@ -1,67 +1,107 @@
-
 import "colors";
-import * as path from "path"
+import * as path from "path";
 import * as commander from "commander";
 import * as fs from "fs";
 const exec = require("child_process").execSync;
-
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function run() {
   const program = new commander.Command();
   program
-    .version("0.1")
-    .option("-d, --dir <dir>", "the directory of the graphs to eval")
-    .option("-o, --outdir <dir>", "the directory of the graphs to write to")
+    .version("0.2")
+    .option("-g, --graph <gexf file>", "the directory of the graphs to eval")
     .parse(process.argv);
 
   console.log("Graph Viz Driver".yellow);
 
-
   // Generator
-  const inputDir = path.join(__dirname, "..", "..", "generator", "input", "data");
-  const generationOutputDir = path.join(__dirname, "..", "..", "generator", "output", "data");
-  console.log("\nGenerator".green.bold)
-  console.log("\t Reading from: \t".yellow, inputDir)
-  console.log("\t Writing to: \t".yellow, generationOutputDir);
-  console.log("\t TODO: execute program".red.bold);
+  const inputGraph =
+    program.graph ||
+    path.join(
+      __dirname,
+      "..",
+      "..",
+      "generator",
+      "input",
+      "graph_43_nodes.gexf"
+    );
+  const generationOutputDir = path.join(
+    __dirname,
+    "..",
+    "..",
+    "generator",
+    "output"
+  );
+  const generationOutputPrefix = "graph_43_nodes";
+  const generationOutputFile = path.join(
+    generationOutputDir,
+    generationOutputPrefix
+  );
+
+  if (!fs.existsSync(inputGraph)) {
+    throw new Error(`No such graph bro exists at ${inputGraph}`);
+  }
+
+  const generatorProgram = path.join(
+    __dirname,
+    "..",
+    "..",
+    "generator",
+    "gephi_generator",
+    "out",
+    "artifacts",
+    "gephi_generator_jar",
+    "gephi_generator.jar"
+  );
+  const gephiCommand = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputFile}`;
+  console.log("\nGenerator".green.bold);
+  console.log("\t Reading graph: \t".yellow, inputGraph);
+  console.log("\t Writing to: \t\t".yellow, generationOutputFile);
+  console.log("\t Running commands:\t".yellow, gephiCommand);
+  exec(gephiCommand);
   await sleep(1000);
 
   // Change output of Generator to JSON format.
   console.log("\t Converting .gexf to .json".yellow);
-  const files = fs.readdirSync(generationOutputDir).filter(f => f.endsWith(".gexf"));
+  const files = fs
+    .readdirSync(generationOutputDir)
+    .filter(f => f.endsWith(".gexf"));
   console.log("\t Running commands:".yellow);
-  const gexfToJSONProgram = path.join(__dirname, "..", "..", "generator", "output", "gexf_to_json.js");
+  const gexfToJSONProgram = path.join(
+    __dirname,
+    "..",
+    "..",
+    "generator",
+    "scripts",
+    "converter",
+    "gexf_to_json.js"
+  );
   files.forEach(file => {
     const filePath = path.join(generationOutputDir, file);
-    const outputFilePath = filePath.replace('.gexf', '.json')
-    const convertCommand = `node ${gexfToJSONProgram} ${filePath} > ${outputFilePath}`
-    console.log("\t  ", convertCommand)
-    exec(convertCommand)
-  })
-
-
+    const outputFilePath = filePath.replace(".gexf", ".json");
+    const convertCommand = `node ${gexfToJSONProgram} ${filePath} > ${outputFilePath}`;
+    console.log("\t  ", convertCommand);
+    exec(convertCommand);
+  });
 
   // Filtration
-  const filtrationOutputDir = path.join(__dirname, "..", "..", "aesthetics", "output", "data");
-  const filtrationProgram = path.join(__dirname, "..", "..", "aesthetics", "dist", "index.js");
+  const filtrationOutputDir = path.join(generationOutputDir, "scores");
+  const filtrationProgram = path.join(
+    __dirname,
+    "..",
+    "..",
+    "aesthetics",
+    "dist",
+    "index.js"
+  );
 
-  console.log("\nFiltration".green.bold)
-  console.log("\t Reading from:\t".yellow, inputDir)
+  console.log("\nFiltration".green.bold);
+  console.log("\t Reading from:\t".yellow, generationOutputDir);
   console.log("\t Writing to: \t".yellow, filtrationOutputDir);
   console.log("\t Running commands:".yellow);
-  const filtrationCommand = `node ${filtrationProgram} -d ${generationOutputDir} -o ${filtrationOutputDir}`
-  console.log("\t  ", filtrationCommand)
-  exec(filtrationCommand)
-
-
-
-
-
-
-  // Run Vue
-
+  const filtrationCommand = `node ${filtrationProgram} -d ${generationOutputDir} -o ${filtrationOutputDir}`;
+  console.log("\t  ", filtrationCommand);
+  exec(filtrationCommand);
 }
-
 
 run();
