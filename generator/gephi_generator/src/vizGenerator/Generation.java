@@ -73,7 +73,7 @@ public class Generation {
         startLayouting();
         centralizeViz();
         setEdgeProperties();
-        svgExport();
+        //svgExport();
         gexfExport();
         pngExport();
     }

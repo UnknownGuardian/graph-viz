@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="gephi_generator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/gephi_generator_jar</output-path>
+    <root id="archive" name="gephi_generator.jar">
+      <element id="module-output" name="gephi_generator" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jars/gephi-toolkit-0.9.2-all.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
