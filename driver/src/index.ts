@@ -3,6 +3,7 @@ import * as path from "path";
 import * as commander from "commander";
 import * as fs from "fs";
 const exec = require("child_process").execSync;
+import { emptyDirSync } from "fs-extra";
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function run() {
@@ -41,6 +42,7 @@ async function run() {
   if (!fs.existsSync(inputGraph)) {
     throw new Error(`No such graph bro exists at ${inputGraph}`);
   }
+  emptyDirSync(generationOutputDir);
 
   const generatorProgram = path.join(
     __dirname,
@@ -94,12 +96,16 @@ async function run() {
     "dist",
     "index.js"
   );
+  const filterUnder = 0.5;
+
+  emptyDirSync(filtrationOutputDir);
 
   console.log("\nFiltration".green.bold);
   console.log("\t Reading from:\t".yellow, generationOutputDir);
   console.log("\t Writing to: \t".yellow, filtrationOutputDir);
+  console.log(`\t Filtering graphs that score below: \t`.yellow, filterUnder);
   console.log("\t Running commands:".yellow);
-  const filtrationCommand = `node ${filtrationProgram} -d ${generationOutputDir} -o ${filtrationOutputDir}`;
+  const filtrationCommand = `node ${filtrationProgram} -d ${generationOutputDir} -o ${filtrationOutputDir} -t ${filterUnder}`;
   console.log("\t  ", filtrationCommand);
   exec(filtrationCommand);
 }
