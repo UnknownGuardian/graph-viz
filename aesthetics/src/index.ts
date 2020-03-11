@@ -20,6 +20,7 @@ export type Graph = {
   name: string;
   nodes: Array<Node>;
   edges: Array<Edge>;
+  json: GraphJSON;
 };
 export type Node = {
   id: number;
@@ -59,7 +60,8 @@ export function preprocess(graphs: Array<GraphJSON>): Array<Graph> {
     const parsed: Graph = {
       name: g.fileName,
       nodes: g.nodes.map(node => ({ ...node, degree: 0, connectedEdges: [] })), // shallow copy
-      edges: []
+      edges: [],
+      json: g
     };
     parsed.edges = g.edges.map(edge => {
       const node1: Node = parsed.nodes.find(
@@ -94,6 +96,7 @@ export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
     return {
       graphName: graph.name,
       score,
+      graph: graph.json,
       evaluations
     };
   });
