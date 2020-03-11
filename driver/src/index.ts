@@ -42,7 +42,7 @@ async function run() {
   if (!fs.existsSync(inputGraph)) {
     throw new Error(`No such graph bro exists at ${inputGraph}`);
   }
-  emptyDirSync(generationOutputDir);
+  //emptyDirSync(generationOutputDir);
 
   const generatorProgram = path.join(
     __dirname,
@@ -98,7 +98,7 @@ async function run() {
   );
   const filterUnder = 0.5;
 
-  emptyDirSync(filtrationOutputDir);
+  //emptyDirSync(filtrationOutputDir);
 
   console.log("\nFiltration".green.bold);
   console.log("\t Reading from:\t".yellow, generationOutputDir);
