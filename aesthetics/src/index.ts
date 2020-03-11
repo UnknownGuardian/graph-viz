@@ -102,6 +102,13 @@ export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
   });
 }
 
+function filterTheLameOnes(
+  e: Array<GraphEvaluation>,
+  theta: number
+): Array<GraphEvaluation> {
+  return e.filter(x => x.score >= theta);
+}
+
 function writeEvaluations(dir: string, e: Array<GraphEvaluation>) {
   const actualDir = path.isAbsolute(dir)
     ? dir
@@ -129,11 +136,17 @@ if (require.main === module) {
     .version("0.1")
     .option("-d, --dir <dir>", "the directory of the graphs to eval")
     .option("-o, --outdir <dir>", "the directory of the graphs to write to")
+    .option(
+      "-t, --theta <score>",
+      "filter graphs that score worse than this",
+      0
+    )
     .parse(process.argv);
 
   console.log("Aesthetics Evaluation".yellow);
 
   const graphs = createGraphsFromDir(program.dir);
   const evaluations = evaluate(graphs);
-  writeEvaluations(program.outdir, evaluations);
+  const best = filterTheLameOnes(evaluations, program.theta);
+  writeEvaluations(program.outdir, best);
 }
