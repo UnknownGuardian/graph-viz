@@ -6,7 +6,7 @@ public class Main {
         String graphToImport = args[0];
         String outputDir = args[1];
         System.out.println("Reading from " + graphToImport);
-        System.out.println("Writing to " + outputDir);
+        System.out.println("Writing to XXXXXXXXX" + outputDir);
 
         ForceAtlas2Gen forceAtlas2Gen = new ForceAtlas2Gen(5000,
                 graphToImport,
