@@ -5,6 +5,8 @@ public class Main {
     public static void main(String[] args) {
         String graphToImport = args[0];
         String outputDir = args[1];
+
+        // add a third input parameters for algorithm
         System.out.println("Reading from " + graphToImport);
         System.out.println("Writing to XXXXXXXXX" + outputDir);
 
@@ -25,9 +27,10 @@ public class Main {
         forceAtlas2Gen.buildEnv();
         forceAtlas2Gen.generateViz();
         System.out.println("Made Force Atlas 2 Gen");
-//        forceAtlas2Gen.randomizeLayoutSettings();
-//        forceAtlas2Gen.setExport_file_path("forceatlas2_test3");
-//        forceAtlas2Gen.generateViz();
+
+        forceAtlas2Gen.randomizeLayoutSettings();
+        forceAtlas2Gen.setExport_file_path("forceatlas2_test3");
+        forceAtlas2Gen.generateViz();
 
         ForceAtlasGen forceAtlasGen = new ForceAtlasGen(
                 5000,

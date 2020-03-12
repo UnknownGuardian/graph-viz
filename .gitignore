@@ -30,3 +30,4 @@ knowledge_base/tools/nauty/nauty26r12
 
 generator/output/
 generator/output/scores
+*.xml

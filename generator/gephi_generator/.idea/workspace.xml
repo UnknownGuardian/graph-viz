@@ -12,12 +12,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="gephi_generator" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="1Yk8Vrr3r1tAHaCJ8zFsbN5D3BZ" />
   <component name="ProjectViewState">
@@ -39,7 +45,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="vizGenerator.Main" />
       <module name="gephi_generator" />
-      <option name="PROGRAM_PARAMETERS" value="../input/data/graph_43_nodes.gexf ../output/data/graph_43_nodes" />
+      <option name="PROGRAM_PARAMETERS" value="../input/graph_43_nodes.gexf ../output/graph_43_nodes" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="vizGenerator.*" />
@@ -69,6 +75,7 @@
       <workItem from="1583475263199" duration="2769000" />
       <workItem from="1583715910971" duration="6457000" />
       <workItem from="1583732504711" duration="260000" />
+      <workItem from="1584046718471" duration="1166000" />
     </task>
     <servers />
   </component>
@@ -84,9 +91,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1583475502215" />
-    <state x="2371" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583892346833">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="361" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584046836478">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="361" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1584046836478" />
     <state x="2371" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583892346833" />
     <state x="2696" y="260" width="424" height="584" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1583817394738">
       <screen x="1920" y="0" width="1920" height="1080" />
@@ -101,9 +109,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2471" y="235" width="525" height="428" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583819429496" />
-    <state x="2754" y="444" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583795701938">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="667" y="339" width="299" height="165" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584046751431">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="667" y="339" width="299" height="165" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.824@0.0.1536.824" timestamp="1584046751431" />
     <state x="2754" y="444" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583795701938" />
     <state x="1076" y="585" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1583716346843">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -117,28 +126,28 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="508" y="590" width="1002" height="446" key="Github.ShareDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1583732724587" />
-    <state width="1807" height="208" key="GridCell.Tab.0.bottom" timestamp="1583892814510">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state width="1493" height="300" key="GridCell.Tab.0.bottom" timestamp="1584046919140">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583478802327" />
+    <state width="1493" height="300" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584046919140" />
     <state width="1234" height="165" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1583730919981" />
     <state width="1807" height="208" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583892814510" />
-    <state width="1807" height="208" key="GridCell.Tab.0.center" timestamp="1583892814510">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state width="1493" height="300" key="GridCell.Tab.0.center" timestamp="1584046919140">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583478802327" />
+    <state width="1493" height="300" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584046919140" />
     <state width="1234" height="165" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1583730919981" />
     <state width="1807" height="208" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583892814510" />
-    <state width="1807" height="208" key="GridCell.Tab.0.left" timestamp="1583892814510">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state width="1493" height="300" key="GridCell.Tab.0.left" timestamp="1584046919140">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583478802327" />
+    <state width="1493" height="300" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584046919140" />
     <state width="1234" height="165" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1583730919981" />
     <state width="1807" height="208" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583892814510" />
-    <state width="1807" height="208" key="GridCell.Tab.0.right" timestamp="1583892814510">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state width="1493" height="300" key="GridCell.Tab.0.right" timestamp="1584046919140">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583478802327" />
+    <state width="1493" height="300" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584046919140" />
     <state width="1234" height="165" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1583730919981" />
     <state width="1807" height="208" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583892814510" />
     <state width="1807" height="208" key="GridCell.Tab.1.bottom" timestamp="1583892814510">
@@ -162,9 +171,10 @@
     </state>
     <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1583475739841" />
     <state x="2231" y="27" width="1024" height="845" key="SettingsEditor/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583820336128" />
-    <state x="2536" y="367" key="com.intellij.ide.util.TipDialog" timestamp="1583795511883">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="493" y="280" key="com.intellij.ide.util.TipDialog" timestamp="1584046718566">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="493" y="280" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1584046718566" />
     <state x="2536" y="367" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1583795511883" />
     <state x="1273" y="0" width="1294" height="1407" key="dock-window-1" timestamp="1583732549836">
       <screen x="0" y="0" width="2560" height="1400" />
