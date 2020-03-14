@@ -1,0 +1,36 @@
+{
+  "name": "graph-viz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup": "npm run setup:aesthetics && npm run setup:driver && npm run setup:generator && npm run setup:server",
+    "setup:aesthetics": "cd aesthetics && npm i && cd ..",
+    "setup:driver": "cd driver && npm i && cd ..",
+    "setup:generator": "cd generator/scripts/converter && npm i && cd ../../.. && mkdir -p generator/output/scores",
+    "setup:server": "cd server && npm i && cd ..",
+    "build:services": "npm run build:service:aesthetics && npm run build:service:driver && npm run build:service:server",
+    "build:service:aesthetics": "tsc -p aesthetics",
+    "build:service:driver": "tsc -p driver",
+    "build:service:server": "tsc -p server",
+    "build:watch": "concurrently -p \"{name}\" -n \"AESTHETIC,DRIVER,SERVER\" -c \"green,green,green,green\"-k \"npm run build:watch:aesthetics\" \"npm run build:watch:driver\"  \"npm run build:watch:server\"",
+    "build:watch:aesthetics": "tsc -w --preserveWatchOutput -p aesthetics",
+    "build:watch:driver": "tsc -w --preserveWatchOutput -p driver",
+    "build:watch:server": "tsc -w --preserveWatchOutput -p server ",
+    "start": "node driver/dist/index.js && nodemon server/dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnknownGuardian/graph-viz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UnknownGuardian/graph-viz/issues"
+  },
+  "homepage": "https://github.com/UnknownGuardian/graph-viz#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "typescript": "^3.8.3"
+  }
+}

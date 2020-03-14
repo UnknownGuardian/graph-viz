@@ -95,9 +95,9 @@ export function evaluate(g: Array<Graph>): Array<GraphEvaluation> {
     }, 0);
     return {
       graphName: graph.name,
+      evaluations,
       score,
-      graph: graph.json,
-      evaluations
+      graph: graph.json
     };
   });
 }
