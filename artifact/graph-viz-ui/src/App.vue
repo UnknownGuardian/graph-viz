@@ -14,25 +14,15 @@
     <h2 class="subtitle is-6">Version 0.0</h2>-->
 
     <div class="main">
-      <GraphVizArea @eval="evaluate" ref="viz" />
+      <GraphVizArea @eval="evaluate" ref="area" />
     </div>
 
     <div class="sidenav">
-      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Total Score: {{score}}</h1>
-      
-      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Evaluators</h1>
+      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Algorithms</h1>
       <table class="table is-hoverable is-fullwidth">
-        <tr v-for="ev in evaluations" :key="ev.name">
-          <td>{{ ev.name }}</td>
-          <td>{{ ev.score }}</td>
-        </tr>
-      </table>
-
-      <h1 class="title is-6" style="padding-top: 16px; padding-left: 8px;">Metrics</h1>
-      <table class="table is-hoverable is-fullwidth">
-        <tr v-for="m in metrics" :key="m.name" >
-          <td>{{ m.name}}</td>
-          <td>{{ m.value }}</td>
+        <tr v-for="v in vizs" :key="v.graphName" @click="setViz(v)" >
+          <td>{{ v.graphName}}</td>
+          <td>{{ v.score }}</td>
         </tr>
       </table>
     </div>
@@ -41,9 +31,8 @@
 </template>
 
 <script>
-
+import * as d3 from "d3"
 import GraphVizArea from "./components/GraphVizArea.vue";
-import { preprocess as preprocessAesthetics, evaluate as evalAesthetics } from "graph-viz-aesthetics"
 
 
 export default {
@@ -53,21 +42,29 @@ export default {
   },
   data() {
     return {
-      score: 0,
-      metrics:[{name:"XX", value:0}],
-      evaluations:[{name:"YY", score:0}]
+      graph: null,
+      vizs: []
     };
   },
+  async mounted() {
+    const json = await d3.json('http://localhost:3000/graphs')
+    this.graph = json.graph;
+    this.vizs = json.visualizations;
+    this.$refs.area.render(this.graph);
+  },
   methods: {
-    evaluate(json) {
-      const graphs = preprocessAesthetics([json]);
+    setViz(v) {
+      this.$refs.area.show(v);
+    },
+    evaluate() {
+      /*const graphs = preprocessAesthetics([json]);
       const evaluation = evalAesthetics(graphs)[0]
       const results = evaluation.evaluations;
       this.evaluations = results.map(e => ({name:e.name, score:e.score}))
       this.metrics = results.map(e => ({name:e.metric.name, value:e.metric.value}))
 
       this.score = this.evaluations.reduce((a, b) => (a + b.score), 0) / this.evaluations.length
-      this.$refs.viz.tryAnother();
+      this.$refs.viz.tryAnother();*/
     }
   }
 };

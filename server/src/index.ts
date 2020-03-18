@@ -2,7 +2,10 @@ import * as fs from "fs";
 import * as path from "path";
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const port = 3000;
+
+app.use(cors());
 
 const aestheticsOutputDir = path.join(
   __dirname,
