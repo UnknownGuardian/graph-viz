@@ -2,6 +2,8 @@ package vizGenerator;
 
 import org.gephi.layout.plugin.openord.OpenOrdLayout;
 
+import java.util.Random;
+
 public class OpenOrdGen extends Generation {
 
     private Integer liquidStage;
@@ -11,10 +13,11 @@ public class OpenOrdGen extends Generation {
     private Integer simmerStage;
     private Float edgeCut;
     private Integer numIterations;
+    private long randomSeed;
 
     private OpenOrdLayout layout;
 
-    public OpenOrdGen(int nb_steps, String import_file_path, String export_file_path, Integer liquidStage, Integer expansionStage, Integer coolDownStage, Integer crunchStage, Integer simmerStage, Float edgeCut, Integer numIterations) {
+    public OpenOrdGen(int nb_steps, String import_file_path, String export_file_path, Integer liquidStage, Integer expansionStage, Integer coolDownStage, Integer crunchStage, Integer simmerStage, Float edgeCut, Integer numIterations, long randomSeed) {
         super(nb_steps, import_file_path, export_file_path);
         this.liquidStage = liquidStage;
         this.expansionStage = expansionStage;
@@ -23,6 +26,8 @@ public class OpenOrdGen extends Generation {
         this.simmerStage = simmerStage;
         this.edgeCut = edgeCut;
         this.numIterations = numIterations;
+
+        this.randomSeed = randomSeed;
 
         this.layout = new OpenOrdLayout(null);
         this.layout.setGraphModel(graphModel);
@@ -38,15 +43,34 @@ public class OpenOrdGen extends Generation {
         layout.setSimmerStage(simmerStage);
         layout.setEdgeCut(edgeCut);
         layout.setNumIterations(numIterations);
+        layout.setNumThreads(7);
+        layout.setRandSeed(randomSeed);
+//
     }
 
     @Override
     public void startLayouting(){
+        int n;
+
+        if (nb_steps > numIterations){
+            n = numIterations;
+        } else {
+            n = nb_steps;
+        }
+
         layout.initAlgo();
-        for (int i = 0; i < nb_steps; i++) {
+        for (int i = 0; i < n; i++) {
             layout.goAlgo();
         }
         layout.endAlgo();
+    }
+
+    @Override
+    public void randomizeLayoutSettings(){
+        Random rd = new Random();
+
+        this.setRandomSeed(rd.nextLong());
+
     }
 
     public Integer getLiquidStage() {
@@ -103,5 +127,13 @@ public class OpenOrdGen extends Generation {
 
     public void setNumIterations(Integer numIterations) {
         this.numIterations = numIterations;
+    }
+
+    public long getRandomSeed() {
+        return randomSeed;
+    }
+
+    public void setRandomSeed(long randomSeed) {
+        this.randomSeed = randomSeed;
     }
 }

@@ -73,7 +73,7 @@ public class Generation {
         startLayouting();
         centralizeViz();
         setEdgeProperties();
-        //svgExport();
+        svgExport();
         gexfExport();
         pngExport();
     }
@@ -166,6 +166,7 @@ public class Generation {
         pngExporter.setWorkspace(workspace);
         try {
             ec.exportFile(new File(export_file_path + ".png"), pngExporter);
+//            ec.exportFile(new File(export_file_path + ".pdf"));
             System.out.println("exporting png file is done.");
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -176,7 +177,7 @@ public class Generation {
 
     }
 
-    public void adjustSettingInNeighborhood(){
+    public void adjustSettingInNeighborhood(int distance){
 
     }
 
@@ -204,3 +205,4 @@ public class Generation {
         this.export_file_path = export_file_path;
     }
 }
+

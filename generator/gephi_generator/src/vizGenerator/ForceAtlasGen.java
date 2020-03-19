@@ -24,6 +24,7 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class ForceAtlasGen extends Generation {
 
@@ -104,7 +105,17 @@ public class ForceAtlasGen extends Generation {
 
     @Override
     public void randomizeLayoutSettings(){
+        Random rd = new Random();
 
+//        this.setAdjustSize(rd.nextBoolean());
+        this.setAttractionDistribution(rd.nextBoolean());
+        this.setFreezeBalance(rd.nextBoolean());
+
+        this.setGravity(100.0 + rd.nextDouble() * 900);
+        this.setAttractionStrength(rd.nextDouble() * 30);
+        this.setCooling(1 + rd.nextDouble() * 9);
+        this.setFreezeStrength(1 + rd.nextDouble() * 9);
+        this.setRepulsionStrength(100.0 + rd.nextDouble() * 900);
     }
 
     public Boolean getAdjustSize() {

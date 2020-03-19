@@ -5,6 +5,8 @@ import org.gephi.layout.plugin.force.yifanHu.YifanHu;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
 import org.gephi.layout.spi.Layout;
 
+import java.util.Random;
+
 public class YifanHuGen extends Generation {
 
     private Float optimalDistance;
@@ -50,6 +52,17 @@ public class YifanHuGen extends Generation {
         }
         layout.endAlgo();
     }
+
+    @Override
+    public void randomizeLayoutSettings(){
+        Random rd = new Random();
+
+        this.setAdaptiveCooling(rd.nextBoolean());
+
+        this.setOptimalDistance(10.0f + rd.nextFloat() * 90);
+        this.setRelativeStrength(0.2f + rd.nextFloat() * 0.78f);
+    }
+
 
     public Float getOptimalDistance() {
         return optimalDistance;

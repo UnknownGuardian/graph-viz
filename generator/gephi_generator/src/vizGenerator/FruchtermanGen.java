@@ -23,6 +23,7 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class FruchtermanGen extends Generation {
 
@@ -56,7 +57,9 @@ public class FruchtermanGen extends Generation {
 
     @Override
     public void randomizeLayoutSettings(){
+        Random rd = new Random();
 
+        this.setGravity(rd.nextDouble() * 100);
     }
 
     public Double getGravity() {
