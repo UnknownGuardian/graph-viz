@@ -73,6 +73,13 @@ public class OpenOrdGen extends Generation {
 
     }
 
+    @Override
+    public void adjustSettingInNeighborhood(int distance){
+        long temp_randomSeed;
+        temp_randomSeed = getRandomSeed() + distance;
+        setRandomSeed(temp_randomSeed);
+    }
+
     public Integer getLiquidStage() {
         return liquidStage;
     }

@@ -118,6 +118,44 @@ public class ForceAtlasGen extends Generation {
         this.setRepulsionStrength(100.0 + rd.nextDouble() * 900);
     }
 
+    @Override
+    public void adjustSettingInNeighborhood(int distance){
+        double temp_gravity;
+        temp_gravity = getGravity() + distance;
+        if (temp_gravity > 1000.0){
+            temp_gravity = temp_gravity - 900.0;
+        }
+        setGravity(temp_gravity);
+
+        double temp_attractionStrength;
+        temp_attractionStrength = getAttractionStrength() + distance * 0.05;
+        if (temp_attractionStrength > 30.0){
+            temp_attractionStrength = temp_attractionStrength - 30.0;
+        }
+        setAttractionStrength(temp_attractionStrength);
+
+        double temp_cooling;
+        temp_cooling = getCooling() + distance * 0.05;
+        if (temp_cooling > 10.0){
+            temp_cooling = temp_cooling - 9.0;
+        }
+        setCooling(temp_cooling);
+
+        double temp_freezeStrength;
+        temp_freezeStrength = getFreezeStrength() + distance * 0.05;
+        if (temp_freezeStrength > 10.0){
+            temp_freezeStrength = temp_freezeStrength - 9.0;
+        }
+        setFreezeStrength(temp_freezeStrength);
+
+        double temp_repulsionStrength;
+        temp_repulsionStrength = getRepulsionStrength() + distance;
+        if (temp_repulsionStrength > 1000.0){
+            temp_repulsionStrength = temp_repulsionStrength - 900.0;
+        }
+        setRepulsionStrength(temp_repulsionStrength);
+    }
+
     public Boolean getAdjustSize() {
         return adjustSize;
     }

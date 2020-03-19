@@ -66,12 +66,16 @@ public class Main {
                         1.0,
                         0.1);
                 forceAtlasGen.buildEnv();
+
+                if (mode < 0) {
+                    forceAtlasGen.randomizeLayoutSettings();
+                } else if (mode > 0){
+                    forceAtlasGen.adjustSettingInNeighborhood(mode);
+                }
+
                 forceAtlasGen.generateViz();
                 System.out.println("Made Force Atlas 1 Gen");
 
-                forceAtlasGen.randomizeLayoutSettings();
-                forceAtlasGen.setExport_file_path(outputDir + "fa_test2");
-                forceAtlasGen.generateViz();
                 break;
 
             case "ft":
@@ -81,12 +85,16 @@ public class Main {
                         outputDir + "fruchterman_test1",
                         100.0);
                 fruchtermanGen.buildEnv();
+
+                if (mode < 0){
+                    fruchtermanGen.randomizeLayoutSettings();
+                } else if (mode > 0){
+                    fruchtermanGen.adjustSettingInNeighborhood(mode);
+                }
+
                 fruchtermanGen.generateViz();
                 System.out.println("Made fruchtermanGen Gen");
 
-                fruchtermanGen.randomizeLayoutSettings();
-                fruchtermanGen.setExport_file_path(outputDir + "fruchterman_test2");
-                fruchtermanGen.generateViz();
                 break;
 
             case "yf":
@@ -100,12 +108,16 @@ public class Main {
                         20,
                         0.8f);
                 yifanHuGen.buildEnv();
+
+                if (mode < 0){
+                    yifanHuGen.randomizeLayoutSettings();
+                } else if (mode > 0){
+                    yifanHuGen.adjustSettingInNeighborhood(mode);
+                }
+
                 yifanHuGen.generateViz();
                 System.out.println("Made yifanHuGen Gen");
 
-                yifanHuGen.randomizeLayoutSettings();
-                yifanHuGen.setExport_file_path(outputDir + "yifanhu_test2");
-                yifanHuGen.generateViz();
                 break;
 
             case "oo":
@@ -121,55 +133,17 @@ public class Main {
                         1300,
                         55643);
                 openOrdGen.buildEnv();
+
+                if (mode < 0){
+                    openOrdGen.randomizeLayoutSettings();
+                } else if (mode > 0){
+                    openOrdGen.adjustSettingInNeighborhood(mode);
+                }
                 openOrdGen.generateViz();
                 System.out.println("Made openOrdGen Gen");
 
-                openOrdGen.setExport_file_path(outputDir + "openord_test2");
-                openOrdGen.randomizeLayoutSettings();
-                openOrdGen.generateViz();
                 break;
-//            case "all":
-////                forceAtlas2Gen.buildEnv();
-//                forceAtlas2Gen.generateViz();
-//                System.out.println("Made Force Atlas 2 Gen");
-//
-//                forceAtlas2Gen.randomizeLayoutSettings();
-//                forceAtlas2Gen.setExport_file_path(outputDir + "fa2_test2");
-//                forceAtlas2Gen.generateViz();
-//
-////                forceAtlasGen.buildEnv();
-//                forceAtlasGen.generateViz();
-//                System.out.println("Made Force Atlas 1 Gen");
-//
-//                forceAtlasGen.randomizeLayoutSettings();
-//                forceAtlasGen.setExport_file_path(outputDir + "fa_test2");
-//                forceAtlasGen.generateViz();
-//
-////                fruchtermanGen.buildEnv();
-//                fruchtermanGen.generateViz();
-//                System.out.println("Made fruchtermanGen Gen");
-//
-//                fruchtermanGen.randomizeLayoutSettings();
-//                fruchtermanGen.setExport_file_path(outputDir + "fruchterman_test2");
-//                fruchtermanGen.generateViz();
-//
-////                yifanHuGen.buildEnv();
-//                yifanHuGen.generateViz();
-//                System.out.println("Made yifanHuGen Gen");
-//
-//                yifanHuGen.randomizeLayoutSettings();
-//                yifanHuGen.setExport_file_path(outputDir + "yifanhu_test2");
-//                yifanHuGen.generateViz();
-//
-////                openOrdGen.buildEnv();
-//                openOrdGen.generateViz();
-//                System.out.println("Made openOrdGen Gen");
-//
-//                openOrdGen.setExport_file_path(outputDir + "openord_test2");
-//                openOrdGen.randomizeLayoutSettings();
-//                openOrdGen.generateViz();
-//
-//                break;
+
         }
 
     }
