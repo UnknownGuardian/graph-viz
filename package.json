@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "npm run setup:aesthetics && npm run setup:driver && npm run setup:generator && npm run setup:server",
+    "setup": "npm i && npm run setup:aesthetics && npm run setup:driver && npm run setup:generator && npm run setup:server",
     "setup:aesthetics": "cd aesthetics && npm i && cd ..",
     "setup:driver": "cd driver && npm i && cd ..",
     "setup:generator": "cd generator/scripts/converter && npm i && cd ../../.. && mkdir -p generator/output/scores",
@@ -17,7 +17,7 @@
     "build:watch:aesthetics": "tsc -w --preserveWatchOutput -p aesthetics",
     "build:watch:driver": "tsc -w --preserveWatchOutput -p driver",
     "build:watch:server": "tsc -w --preserveWatchOutput -p server ",
-    "start": "node driver/dist/index.js && nodemon server/dist/index.js"
+    "start": "node driver/dist/index.js && cd server && nodemon dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,9 @@
   },
   "homepage": "https://github.com/UnknownGuardian/graph-viz#readme",
   "devDependencies": {
+    "colors": "^1.4.0",
     "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2",
     "typescript": "^3.8.3"
   }
 }

@@ -16,28 +16,10 @@ async function run() {
   console.log("Graph Viz Driver".yellow);
 
   // Generator
+  const generator = path.join(__dirname, "..", "..", "generator");
   const inputGraph =
-    program.graph ||
-    path.join(
-      __dirname,
-      "..",
-      "..",
-      "generator",
-      "input",
-      "graph_43_nodes.gexf"
-    );
-  const generationOutputDir = path.join(
-    __dirname,
-    "..",
-    "..",
-    "generator",
-    "output"
-  );
-  const generationOutputPrefix = "graph_43_nodes";
-  const generationOutputFile = path.join(
-    generationOutputDir,
-    generationOutputPrefix
-  );
+    program.graph || path.join(generator, "input", "graph_43_nodes.gexf");
+  const generationOutputDir = path.join(generator, "output");
 
   if (!fs.existsSync(inputGraph)) {
     throw new Error(`No such graph bro exists at ${inputGraph}`);
@@ -45,20 +27,17 @@ async function run() {
   //emptyDirSync(generationOutputDir);
 
   const generatorProgram = path.join(
-    __dirname,
-    "..",
-    "..",
-    "generator",
+    generator,
     "gephi_generator",
     "out",
     "artifacts",
     "gephi_generator_jar",
     "gephi_generator.jar"
   );
-  const gephiCommand = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputFile}`;
+  const gephiCommand = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir}`;
   console.log("\nGenerator".green.bold);
   console.log("\t Reading graph: \t".yellow, inputGraph);
-  console.log("\t Writing to: \t\t".yellow, generationOutputFile);
+  console.log("\t Writing to: \t\t".yellow, generationOutputDir);
   console.log("\t Running commands:\t".yellow, gephiCommand);
   exec(gephiCommand);
   await sleep(1000);
@@ -70,10 +49,7 @@ async function run() {
     .filter(f => f.endsWith(".gexf"));
   console.log("\t Running commands:".yellow);
   const gexfToJSONProgram = path.join(
-    __dirname,
-    "..",
-    "..",
-    "generator",
+    generator,
     "scripts",
     "converter",
     "gexf_to_json.js"
@@ -87,7 +63,7 @@ async function run() {
   });
 
   // Filtration
-  const filtrationOutputDir = path.join(generationOutputDir, "scores");
+  const filtrationOutputDir = path.join(generator, "scores");
   const filtrationProgram = path.join(
     __dirname,
     "..",
