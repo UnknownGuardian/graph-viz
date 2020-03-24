@@ -89,9 +89,9 @@ public class Generation {
         startLayouting();
         centralizeViz();
         setEdgeProperties();
-        svgExport();
+        //svgExport();
         gexfExport();
-        pngExport();
+        //pngExport();
     }
 
     public void import_graph(){
