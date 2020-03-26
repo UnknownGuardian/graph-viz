@@ -37,6 +37,11 @@ async function remake(req: any, res: any) {
   // remake new viz
   const viz = req.query.graphName;
   const algorithm = viz.split(".json")[0];
+  if (!["fa2", "fa", "ft", "yf", "oo", "all"].includes(algorithm)) {
+    res.header("Content-Type", "application/json");
+    res.json({ error: "No such algorithm" });
+  }
+
   const cmd = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir} ${algorithm}`;
   exec(cmd);
 

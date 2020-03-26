@@ -26,7 +26,7 @@ export const edgeLengthVariance: EvaluationFunction = (
   const value = new EdgeLengthVariance(g).calculate();
   const score = 1 / value;
   return {
-    name: "Minimum Edge Length",
+    name: "Minimum Edge Length Variance",
     score,
     weight: 0.1
   };

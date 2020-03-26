@@ -40,7 +40,7 @@ public class Main {
         if(algorithm.equals("fa") || algorithm.equals("all")) {
             gs.add(new ForceAtlas2Gen(5000,
                     graphToImport,
-                    outputDir + "/fa2",
+                    outputDir + "/fa",
                     true,
                     false,
                     true,
