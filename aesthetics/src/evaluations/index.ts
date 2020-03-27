@@ -15,6 +15,7 @@ export type Evaluation = {
   name: string;
   score: number;
   weight: number;
+  [key: string]: any; //extra
 };
 
 // grab a list of the evaluation functions, but toss them into an array.

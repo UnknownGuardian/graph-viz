@@ -7,17 +7,17 @@
             v-for="n in nodes"
             :key="n.id"
             :r="2"
-            :cx="n.x"
-            :cy="n.y"
+            :cx="n.x*2"
+            :cy="n.y*2"
             fill="#ff00ff"
           />
           <line
             v-for="e in edges"
             :key="e.source.id+e.target.id"
-            :x1="e.x1"
-            :y1="e.y1"
-            :x2="e.x2"
-            :y2="e.y2"
+            :x1="e.x1*2"
+            :y1="e.y1*2"
+            :x2="e.x2*2"
+            :y2="e.y2*2"
             stroke="#aaa"
            />
         </g>
@@ -45,8 +45,8 @@ export default {
     show(viz) {
       console.log("SHowing a viz", viz.graphName);
       this.nodes.forEach((node, index) => {
-        node.x = viz.points[index].x + 300,
-        node.y = viz.points[index].y + 300
+        node.x = viz.points[index].x + 150,
+        node.y = viz.points[index].y + 150
       });
       this.edges.forEach(edge => {
         edge.x1 = edge.source.x,

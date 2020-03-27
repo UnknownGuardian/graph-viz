@@ -10,25 +10,36 @@ import {
 } from "../metrics";
 import { EvaluationFunction, Evaluation } from ".";
 
+export const edgeCrossings: EvaluationFunction = (g: Graph): Evaluation => {
+  const crossings = new EdgeCrossings(g).calculate();
+  return {
+    name: "Edge Crossings",
+    score: 1 - crossings,
+    weight: 0.29
+  };
+};
+
 export const minEdgeLength: EvaluationFunction = (g: Graph): Evaluation => {
-  const threshold = 5;
+  const threshold = 10;
   const value = new MinimumEdgeLength(g).calculate();
-  const score = value > threshold ? 1 : 0;
+  const score = value < threshold ? 1 : 0;
   return {
     name: "Minimum Edge Length",
     score,
-    weight: 0.1
+    weight: 0.1,
+    value
   };
 };
 export const edgeLengthVariance: EvaluationFunction = (
   g: Graph
 ): Evaluation => {
   const value = new EdgeLengthVariance(g).calculate();
-  const score = 1 / value;
+  const score = Math.max(0, 1 - value / 50); // 1 / value;
   return {
-    name: "Minimum Edge Length Variance",
+    name: "Edge Length Variance",
     score,
-    weight: 0.1
+    weight: 0.2,
+    value
   };
 };
 export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
@@ -64,14 +75,6 @@ export const upwardFlow: EvaluationFunction = (g: Graph): Evaluation => {
     name: "Upward Flow",
     score: flow,
     weight: 0.01
-  };
-};
-export const edgeCrossings: EvaluationFunction = (g: Graph): Evaluation => {
-  const crossings = new EdgeCrossings(g).calculate();
-  return {
-    name: "Edge Crossings",
-    score: 1 - crossings,
-    weight: 0.39
   };
 };
 

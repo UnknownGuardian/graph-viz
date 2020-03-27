@@ -72,7 +72,7 @@ async function run() {
     "dist",
     "index.js"
   );
-  const filterUnder = 0.5;
+  const filterUnder = 0.2;
 
   //emptyDirSync(filtrationOutputDir);
 
