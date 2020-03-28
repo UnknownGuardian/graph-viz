@@ -15,6 +15,7 @@
 
     <div class="main">
       <GraphVizArea @eval="evaluate" ref="area" />
+      <a @click="genNew()">Generate New</a>
     </div>
 
     <div class="sidenav">
@@ -53,6 +54,22 @@ export default {
     this.$refs.area.render(this.graph);
   },
   methods: {
+    async genNew() {
+      const name = this.$refs.area.getViz();
+      if(!name) {
+        return;
+      }
+      const json = await d3.json(`http://localhost:3000/graphs/remake?graphName=${name}`)
+      console.log("Got new");
+      console.log(json);
+      const sameIndex = this.vizs.findIndex(x => x.graphName == name);
+      if(sameIndex == -1) {
+        console.log("Not sure where to replace it at");
+        return;
+      }
+      this.vizs[sameIndex] = json;
+      this.setViz(json);
+    },
     setViz(v) {
       this.$refs.area.show(v);
     },

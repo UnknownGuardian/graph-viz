@@ -42,7 +42,11 @@ async function remake(req: any, res: any) {
     res.json({ error: "No such algorithm" });
   }
 
-  const cmd = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir} ${algorithm}`;
+  const num = -1;
+  const cmd = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir} ${algorithm} ${num}`;
+  console.log("\nServer".green.bold);
+  console.log("\t Running commands:".yellow);
+  console.log("\t  ", cmd);
   exec(cmd);
 
   // do gexf->json
@@ -52,7 +56,7 @@ async function remake(req: any, res: any) {
   score();
 
   // sleep just a little to let the watcher pick up files
-  await sleep(100);
+  await sleep(300);
 
   //serve
   const path: string =
@@ -128,8 +132,12 @@ function watch() {
   chokidar
     .watch(aestheticsOutputDir, { usePolling: true })
     .on("unlink", path => delete cache[path])
-    .on("add", path => (cache[path] = require(path)))
-    .on("change", path => (cache[path] = require(path)));
+    .on("add", path => {
+      cache[path] = JSON.parse(fs.readFileSync(path, "UTF-8"));
+    })
+    .on("change", path => {
+      cache[path] = JSON.parse(fs.readFileSync(path, "UTF-8"));
+    });
 }
 
 export const graphs = {

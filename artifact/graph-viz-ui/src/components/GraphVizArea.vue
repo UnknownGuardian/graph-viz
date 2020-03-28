@@ -14,10 +14,10 @@
           <line
             v-for="e in edges"
             :key="e.source.id+e.target.id"
-            :x1="e.x1*2"
-            :y1="e.y1*2"
-            :x2="e.x2*2"
-            :y2="e.y2*2"
+            :x1="e.x1*2 || 0"
+            :y1="e.y1*2 || 0"
+            :x2="e.x2*2 || 0"
+            :y2="e.y2*2 || 0"
             stroke="#aaa"
            />
         </g>
@@ -34,6 +34,7 @@ export default {
   
   data() {
     return {
+      graphname:"",
       graphJSON: {},
       nodes:[],
       edges:[],
@@ -42,8 +43,12 @@ export default {
     }
   },
   methods: {
+    getViz() {
+      return this.graphName;
+    },
     show(viz) {
       console.log("SHowing a viz", viz.graphName);
+      this.graphName = viz.graphName;
       this.nodes.forEach((node, index) => {
         node.x = viz.points[index].x + 150,
         node.y = viz.points[index].y + 150
