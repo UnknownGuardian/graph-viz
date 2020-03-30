@@ -91,7 +91,7 @@ public class Generation {
         setEdgeProperties();
         //svgExport();
         gexfExport();
-        //pngExport();
+//        pngExport();
     }
 
     public void import_graph(){
@@ -116,7 +116,7 @@ public class Generation {
 
     public void setNodeSize(){
         for (Node n: graph.getNodes()) {
-            n.setSize(0.3f);
+            n.setSize(1.0f);
         }
     }
 
@@ -135,7 +135,7 @@ public class Generation {
 
     public void setEdgeProperties(){
         previewModel.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.FALSE);
-        previewModel.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, 0.1f);
+        previewModel.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, 1.0f);
         previewModel.getProperties().putValue(PreviewProperty.ARROW_SIZE, 0.0f);
     }
 

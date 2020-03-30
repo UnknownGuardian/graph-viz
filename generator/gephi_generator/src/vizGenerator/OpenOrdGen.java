@@ -75,9 +75,35 @@ public class OpenOrdGen extends Generation {
 
     @Override
     public void adjustSettingInNeighborhood(int distance){
-        long temp_randomSeed;
-        temp_randomSeed = getRandomSeed() + distance;
-        setRandomSeed(temp_randomSeed);
+
+        Integer temp_liquidStage;
+        temp_liquidStage = (getLiquidStage() + distance) % 101;
+        setLiquidStage(temp_liquidStage);
+
+        Integer temp_expansionStage;
+        temp_expansionStage = (getExpansionStage() - distance) % 101;
+        setExpansionStage(temp_expansionStage);
+
+        Integer temp_coolDownStage;
+        temp_coolDownStage = (getCoolDownStage() + 2 * distance) % 101;
+        setCoolDownStage(temp_coolDownStage);
+
+        Integer temp_crunchStage;
+        temp_crunchStage = (getCrunchStage() - distance) % 101;
+        setCrunchStage(temp_crunchStage);
+
+        Integer temp_simmerStage;
+        temp_simmerStage = (getSimmerStage() + distance) % 101;
+        setSimmerStage(temp_simmerStage);
+
+    }
+
+    private boolean isParametersValid() {
+        return ((liquidStage > 0) && (liquidStage < 100)
+                && (expansionStage > 0) && (expansionStage < 100)
+                && (coolDownStage > 0) && (coolDownStage < 100)
+                && (crunchStage > 0) && (crunchStage < 100)
+                && (simmerStage > 0) && (simmerStage < 100));
     }
 
     public Integer getLiquidStage() {

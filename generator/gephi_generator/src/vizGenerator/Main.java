@@ -23,54 +23,56 @@ public class Main {
 
         ArrayList<Generation> gs = new ArrayList<>();
         if(algorithm.equals("fa2") || algorithm.equals("all")) {
-            gs.add(new ForceAtlas2Gen(5000,
+            gs.add(new ForceAtlas2Gen(10000,
                     graphToImport,
                     outputDir + "/fa2",
                     true,
                     false,
                     true,
-                    1.0,
-                    10.0,
+                    0,
+                    8.0,
                     false,
-                    20.0,
-                    0.2,
+                    15.0,
+                    0.1,
                     false,
                     1.2));
         }
         if(algorithm.equals("fa") || algorithm.equals("all")) {
-            gs.add(new ForceAtlas2Gen(5000,
+            gs.add(new ForceAtlasGen(10000,
                     graphToImport,
                     outputDir + "/fa",
                     true,
-                    false,
+                    75.0,
                     true,
-                    1.0,
                     10.0,
+                    5.0,
                     false,
-                    20.0,
-                    0.2,
-                    false,
-                    1.2));
+                    5.0,
+                    10.0,
+                    0.1,
+                    50.0,
+                    1.0,
+                    0.1));
         }
         if(algorithm.equals("ft") || algorithm.equals("all")) {
-            gs.add(new FruchtermanGen(5000,
+            gs.add(new FruchtermanGen(10000,
                     graphToImport,
                     outputDir + "/ft",
-                    100.0));
+                    200.0));
         }
         if(algorithm.equals("yf") || algorithm.equals("all")) {
-            gs.add(new YifanHuGen(5000,
+            gs.add(new YifanHuGen(10000,
                     graphToImport,
                     outputDir + "/yf",
-                    30.0f,
-                    0.3f,
+                    25.0f,
+                    0.15f,
                     true,
                     0.0001f,
                     20,
                     0.8f));
         }
         if(algorithm.equals("oo") || algorithm.equals("all")) {
-            gs.add(new OpenOrdGen(5000,
+            gs.add(new OpenOrdGen(10000,
                     graphToImport,
                     outputDir + "/oo",
                     25,

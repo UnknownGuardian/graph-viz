@@ -36,7 +36,7 @@ public class YifanHuGen extends Generation {
     public void setVizProperties(){
         layout.setOptimalDistance(optimalDistance);
         layout.setRelativeStrength(relativeStrength);
-        layout.setInitialStep(0.1f * optimalDistance);
+        layout.setInitialStep(0.2f * optimalDistance);
         layout.setStepRatio(0.95f);
         layout.setAdaptiveCooling(adaptiveCooling);
         layout.setConvergenceThreshold(convergenceThreshold);
