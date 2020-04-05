@@ -181,6 +181,14 @@ public class Generation {
 
     }
 
+    public void readConfig(){
+
+    }
+
+    public void writeConfig(){
+
+    }
+
     public int getNb_steps() {
         return nb_steps;
     }

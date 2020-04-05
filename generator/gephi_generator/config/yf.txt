@@ -1,0 +1,5 @@
+{
+  "optimalDistance": 25.6,
+  "relativeStrength": 0.162,
+  "adaptiveCooling": true
+}

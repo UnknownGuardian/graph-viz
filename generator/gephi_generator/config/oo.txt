@@ -1,0 +1,8 @@
+{
+  "liquidStage": 47,
+  "expansionStage": 3,
+  "coolDownStage": 69,
+  "crunchStage": 89,
+  "simmerStage": 37,
+  "randomSeed": 55643
+}

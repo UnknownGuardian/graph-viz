@@ -23,6 +23,10 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Random;
 
 public class FruchtermanGen extends Generation {
@@ -65,10 +69,44 @@ public class FruchtermanGen extends Generation {
     public void adjustSettingInNeighborhood(int distance){
         double temp_gravity;
         temp_gravity = getGravity() + distance * 0.05;
-        if (temp_gravity > 100.0){
-            temp_gravity = temp_gravity - 100.0;
+        if (temp_gravity > 300.0){
+            temp_gravity = temp_gravity - 300.0;
         }
         setGravity(temp_gravity);
+    }
+
+    @Override
+    public void readConfig() {
+        String directory = "config/ft.txt";
+        Path configPath = Paths.get(directory);
+        String config = null;
+
+        try {
+            config = Files.readString(configPath);
+        } catch (IOException e) {
+            System.out.println("an error occurred during reading Fruchterman configuration file.");
+            e.printStackTrace();
+        }
+
+        FruchtermanConfig fruchtermanConfig = JsonDecoder.decode(config, FruchtermanConfig.class);
+
+        setGravity(fruchtermanConfig.getGravity());
+    }
+
+    @Override
+    public void writeConfig() {
+        FruchtermanConfig fruchtermanConfig = new FruchtermanConfig(this);
+        String config = JsonEncoder.encode(fruchtermanConfig);
+
+        String directory = "config/ft.txt";
+        Path configPath = Paths.get(directory);
+
+        try {
+            Files.write(configPath, Collections.singleton(config));
+        } catch (IOException e) {
+            System.out.println("an error occurred during writing Fruchterman configuration file.");
+            e.printStackTrace();
+        }
     }
 
     public Double getGravity() {

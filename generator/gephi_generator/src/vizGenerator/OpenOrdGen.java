@@ -2,6 +2,11 @@ package vizGenerator;
 
 import org.gephi.layout.plugin.openord.OpenOrdLayout;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Random;
 
 public class OpenOrdGen extends Generation {
@@ -77,25 +82,66 @@ public class OpenOrdGen extends Generation {
     public void adjustSettingInNeighborhood(int distance){
 
         Integer temp_liquidStage;
-        temp_liquidStage = (getLiquidStage() + distance) % 101;
+        temp_liquidStage = (((getLiquidStage() + distance) % 101) + 101) % 101;
         setLiquidStage(temp_liquidStage);
 
         Integer temp_expansionStage;
-        temp_expansionStage = (getExpansionStage() - distance) % 101;
+        temp_expansionStage = (((getExpansionStage() - distance) % 101) + 101) % 101;
         setExpansionStage(temp_expansionStage);
 
         Integer temp_coolDownStage;
-        temp_coolDownStage = (getCoolDownStage() + 2 * distance) % 101;
+        temp_coolDownStage = (((getCoolDownStage() + 2 * distance) % 101) + 101) % 101;
         setCoolDownStage(temp_coolDownStage);
 
         Integer temp_crunchStage;
-        temp_crunchStage = (getCrunchStage() - distance) % 101;
+        temp_crunchStage = (((getCrunchStage() - distance) % 101) + 101) % 101;
         setCrunchStage(temp_crunchStage);
 
         Integer temp_simmerStage;
-        temp_simmerStage = (getSimmerStage() + distance) % 101;
+        temp_simmerStage = (((getSimmerStage() + distance) % 101) + 101) % 101;
         setSimmerStage(temp_simmerStage);
 
+    }
+
+    @Override
+    public void readConfig() {
+        String directory = "config/oo.txt";
+        Path configPath = Paths.get(directory);
+        String config = null;
+
+        try {
+            config = Files.readString(configPath);
+        } catch (IOException e) {
+            System.out.println("an error occurred during reading OpenOrd configuration file.");
+            e.printStackTrace();
+        }
+
+        OpenOrdConfig openOrdConfig = JsonDecoder.decode(config, OpenOrdConfig.class);
+
+        setLiquidStage(openOrdConfig.getLiquidStage());
+        setExpansionStage(openOrdConfig.getExpansionStage());
+        setCoolDownStage(openOrdConfig.getCoolDownStage());
+        setCrunchStage(openOrdConfig.getCrunchStage());
+        setSimmerStage(openOrdConfig.getSimmerStage());
+        setRandomSeed(openOrdConfig.getRandomSeed());
+
+    }
+
+    @Override
+    public void writeConfig() {
+
+        OpenOrdConfig openOrdConfig = new OpenOrdConfig(this);
+        String config = JsonEncoder.encode(openOrdConfig);
+
+        String directory = "config/oo.txt";
+        Path configPath = Paths.get(directory);
+
+        try {
+            Files.write(configPath, Collections.singleton(config));
+        } catch (IOException e) {
+            System.out.println("an error occurred during writing OpenOrd configuration file.");
+            e.printStackTrace();
+        }
     }
 
     private boolean isParametersValid() {
@@ -168,5 +214,19 @@ public class OpenOrdGen extends Generation {
 
     public void setRandomSeed(long randomSeed) {
         this.randomSeed = randomSeed;
+    }
+
+    @Override
+    public String toString() {
+        return "OpenOrdGen{" +
+                "liquidStage=" + liquidStage +
+                ", expansionStage=" + expansionStage +
+                ", coolDownStage=" + coolDownStage +
+                ", crunchStage=" + crunchStage +
+                ", simmerStage=" + simmerStage +
+                ", edgeCut=" + edgeCut +
+                ", numIterations=" + numIterations +
+                ", randomSeed=" + randomSeed +
+                '}';
     }
 }

@@ -1,25 +1,24 @@
 package vizGenerator;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String graphToImport = args[0];
         String outputDir = args[1];
         String algorithm = args.length > 2 ? args[2] : "all";
         int mode = args.length == 4 ? Integer.parseInt(args[3]) : 0;
 
-//        if (mode < -1) {
-//            System.out.println("mode shouldn't be less than -1!");
-//            System.exit(-1);
-//        }
-
         System.out.println("Reading from " + graphToImport);
         System.out.println("Writing to " + outputDir);
         System.out.println("using algorithm: " +  algorithm);
         System.out.println("mode is " + mode);
-
 
         ArrayList<Generation> gs = new ArrayList<>();
         if(algorithm.equals("fa2") || algorithm.equals("all")) {
@@ -86,13 +85,35 @@ public class Main {
         }
 
         for(Generation g : gs) {
+
             g.buildEnv();
+
+            g.readConfig();
+
             if (mode < 0) {
                 g.randomizeLayoutSettings();
             } else if (mode > 0) {
                 g.adjustSettingInNeighborhood(mode);
             }
+
+            g.writeConfig();
+
             g.generateViz();
+
+//            OpenOrdConfig config = new OpenOrdConfig(g);
+//            String s = JsonEncoder.encode(config);
+//            System.out.println(s);
+//
+//            Path path = Paths.get("oocig.txt");
+//            Files.write(path, Collections.singleton(s));
+//
+//            String ss = Files.readString(path);
+//            System.out.println(ss);
+//            OpenOrdConfig config2 = JsonDecoder.decode(ss, OpenOrdConfig.class);
+//            System.out.println(config2);
+
+//            String config = JsonEncoder.encode(g);
+//            System.out.println(config);
         }
     }
 }

@@ -5,6 +5,11 @@ import org.gephi.layout.plugin.force.yifanHu.YifanHu;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
 import org.gephi.layout.spi.Layout;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Random;
 
 public class YifanHuGen extends Generation {
@@ -78,6 +83,42 @@ public class YifanHuGen extends Generation {
             temp_relativeStrength = temp_relativeStrength - 0.78f;
         }
         setRelativeStrength(temp_relativeStrength);
+    }
+
+    @Override
+    public void readConfig() {
+        String directory = "config/yf.txt";
+        Path configPath = Paths.get(directory);
+        String config = null;
+
+        try {
+            config = Files.readString(configPath);
+        } catch (IOException e) {
+            System.out.println("an error occurred during reading YifanHu configuration file.");
+            e.printStackTrace();
+        }
+
+        YifanHuConfig yifanHuConfig = JsonDecoder.decode(config, YifanHuConfig.class);
+
+        setOptimalDistance(yifanHuConfig.getOptimalDistance());
+        setRelativeStrength(yifanHuConfig.getRelativeStrength());
+        setAdaptiveCooling(yifanHuConfig.isAdaptiveCooling());
+    }
+
+    @Override
+    public void writeConfig() {
+        YifanHuConfig yifanHuConfig = new YifanHuConfig(this);
+        String config = JsonEncoder.encode(yifanHuConfig);
+
+        String directory = "config/yf.txt";
+        Path configPath = Paths.get(directory);
+
+        try {
+            Files.write(configPath, Collections.singleton(config));
+        } catch (IOException e) {
+            System.out.println("an error occurred during writing YifanHu configuration file.");
+            e.printStackTrace();
+        }
     }
 
     public Float getOptimalDistance() {

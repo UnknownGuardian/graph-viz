@@ -1,0 +1,9 @@
+{
+  "gravity": 99.0,
+  "attractionDistribution": true,
+  "attractionStrength": 11.2,
+  "cooling": 6.199999999999999,
+  "freezeBalance": false,
+  "freezeStrength": 6.199999999999999,
+  "repulsionStrength": 74.0
+}

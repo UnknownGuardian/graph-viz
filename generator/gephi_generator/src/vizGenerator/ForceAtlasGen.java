@@ -24,6 +24,10 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Random;
 
 public class ForceAtlasGen extends Generation {
@@ -107,7 +111,6 @@ public class ForceAtlasGen extends Generation {
     public void randomizeLayoutSettings(){
         Random rd = new Random();
 
-//        this.setAdjustSize(rd.nextBoolean());
         this.setAttractionDistribution(rd.nextBoolean());
         this.setFreezeBalance(rd.nextBoolean());
 
@@ -154,6 +157,46 @@ public class ForceAtlasGen extends Generation {
             temp_repulsionStrength = temp_repulsionStrength - 900.0;
         }
         setRepulsionStrength(temp_repulsionStrength);
+    }
+
+    @Override
+    public void readConfig() {
+        String directory = "config/fa.txt";
+        Path configPath = Paths.get(directory);
+        String config = null;
+
+        try {
+            config = Files.readString(configPath);
+        } catch (IOException e) {
+            System.out.println("an error occurred during reading ForceAtlas configuration file.");
+            e.printStackTrace();
+        }
+
+        ForceAtlasConfig forceAtlasConfig = JsonDecoder.decode(config, ForceAtlasConfig.class);
+
+        setGravity(forceAtlasConfig.getGravity());
+        setAttractionDistribution(forceAtlasConfig.getAttractionDistribution());
+        setAttractionStrength(forceAtlasConfig.getAttractionStrength());
+        setCooling(forceAtlasConfig.getCooling());
+        setFreezeBalance(forceAtlasConfig.getFreezeBalance());
+        setFreezeStrength(forceAtlasConfig.getFreezeStrength());
+        setRepulsionStrength(forceAtlasConfig.getRepulsionStrength());
+    }
+
+    @Override
+    public void writeConfig() {
+        ForceAtlasConfig forceAtlasConfig = new ForceAtlasConfig(this);
+        String config = JsonEncoder.encode(forceAtlasConfig);
+
+        String directory = "config/fa.txt";
+        Path configPath = Paths.get(directory);
+
+        try {
+            Files.write(configPath, Collections.singleton(config));
+        } catch (IOException e) {
+            System.out.println("an error occurred during writing ForceAtlas configuration file.");
+            e.printStackTrace();
+        }
     }
 
     public Boolean getAdjustSize() {

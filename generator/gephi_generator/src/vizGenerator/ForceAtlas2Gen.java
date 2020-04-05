@@ -23,6 +23,10 @@ import org.openide.util.Lookup;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Random;
 
 public class ForceAtlas2Gen extends Generation{
@@ -133,6 +137,46 @@ public class ForceAtlas2Gen extends Generation{
         }
         setGravity(temp_gravity);
 
+    }
+
+    @Override
+    public void readConfig() {
+        String directory = "config/fa2.txt";
+        Path configPath = Paths.get(directory);
+        String config = null;
+
+        try {
+            config = Files.readString(configPath);
+        } catch (IOException e) {
+            System.out.println("an error occurred during reading ForceAtlas2 configuration file.");
+            e.printStackTrace();
+        }
+
+        ForceAtlas2Config forceAtlas2Config  = JsonDecoder.decode(config, ForceAtlas2Config.class);
+
+        setDissuade_hubs(forceAtlas2Config.isDissuade_hubs());
+        setLinlog_mode(forceAtlas2Config.isLinlog_mode());
+        setEdge_weight_influence(forceAtlas2Config.getEdge_weight_influence());
+        setScaling(forceAtlas2Config.getScaling());
+        setStronger_gravity(forceAtlas2Config.isStronger_gravity());
+        setGravity(forceAtlas2Config.getGravity());
+        setApproximate_repulsion(forceAtlas2Config.isApproximate_repulsion());
+    }
+
+    @Override
+    public void writeConfig() {
+        ForceAtlas2Config forceAtlas2Config = new ForceAtlas2Config(this);
+        String config = JsonEncoder.encode(forceAtlas2Config);
+
+        String directory = "config/fa2.txt";
+        Path configPath = Paths.get(directory);
+
+        try {
+            Files.write(configPath, Collections.singleton(config));
+        } catch (IOException e) {
+            System.out.println("an error occurred during writing ForceAtlas2 configuration file.");
+            e.printStackTrace();
+        }
     }
 
     public boolean isDissuade_hubs() {
