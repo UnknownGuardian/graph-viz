@@ -23,6 +23,7 @@ import org.openide.util.Lookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class Generation {
 
@@ -187,6 +188,47 @@ public class Generation {
 
     public void writeConfig(){
 
+    }
+
+    public double adjustDoubleParam(double param, int distance, double scalar, double max, double min){
+        double tempParam;
+        double amount = distance * scalar;
+        double halfAmount = amount * 0.5;
+
+        do {
+            tempParam = param + Math.random() * amount - halfAmount;
+        } while((tempParam > max) || (tempParam < min));
+
+        return tempParam;
+    }
+
+    public Integer adjustIntParam(Integer param, int distance, Integer scalar, Integer max, Integer min){
+        Integer tempParam;
+        Integer amount = distance * scalar;
+        Random random = new Random();
+
+        do {
+            if (random.nextBoolean()) {
+                tempParam = param + amount;
+            }else {
+                tempParam = param - amount;
+            }
+        } while((tempParam > max) || (tempParam < min));
+
+        return tempParam;
+    }
+
+    public Float adjustFloatParam(Float param, int distance, Float scalar, Float max, Float min){
+        Float tempParam;
+        Float amount = distance * scalar;
+        Float halfAmount = amount * 0.5f;
+        Random random = new Random();
+
+        do {
+            tempParam = param + random.nextFloat() * amount - halfAmount;
+        } while((tempParam > max) || (tempParam < min));
+
+        return tempParam;
     }
 
     public int getNb_steps() {
