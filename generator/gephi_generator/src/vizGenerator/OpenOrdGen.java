@@ -81,24 +81,24 @@ public class OpenOrdGen extends Generation {
     @Override
     public void adjustSettingInNeighborhood(int distance){
 
-        Integer temp_liquidStage;
-        temp_liquidStage = (((getLiquidStage() + distance) % 101) + 101) % 101;
+        Integer temp_liquidStage = getLiquidStage();
+        temp_liquidStage = adjustIntParam(temp_liquidStage, distance, 1, 100, 0);
         setLiquidStage(temp_liquidStage);
 
-        Integer temp_expansionStage;
-        temp_expansionStage = (((getExpansionStage() - distance) % 101) + 101) % 101;
+        Integer temp_expansionStage = getExpansionStage();
+        temp_expansionStage = adjustIntParam(temp_expansionStage, distance, 1, 100, 0);
         setExpansionStage(temp_expansionStage);
 
-        Integer temp_coolDownStage;
-        temp_coolDownStage = (((getCoolDownStage() + 2 * distance) % 101) + 101) % 101;
+        Integer temp_coolDownStage = getCoolDownStage();
+        temp_coolDownStage = adjustIntParam(temp_coolDownStage, distance, 1, 100, 0);
         setCoolDownStage(temp_coolDownStage);
 
-        Integer temp_crunchStage;
-        temp_crunchStage = (((getCrunchStage() - distance) % 101) + 101) % 101;
+        Integer temp_crunchStage = getCrunchStage();
+        temp_crunchStage = adjustIntParam(temp_crunchStage, distance, 1, 100, 0);
         setCrunchStage(temp_crunchStage);
 
-        Integer temp_simmerStage;
-        temp_simmerStage = (((getSimmerStage() + distance) % 101) + 101) % 101;
+        Integer temp_simmerStage = getSimmerStage();
+        temp_simmerStage = adjustIntParam(temp_simmerStage, distance, 1, 100, 0);
         setSimmerStage(temp_simmerStage);
 
     }

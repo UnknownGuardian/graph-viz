@@ -102,39 +102,44 @@ public class ForceAtlasGen extends Generation {
 
     @Override
     public void adjustSettingInNeighborhood(int distance){
-        double temp_gravity;
-        temp_gravity = getGravity() + distance;
-        if (temp_gravity > 1000.0){
-            temp_gravity = temp_gravity - 900.0;
-        }
+        double temp_gravity = getGravity();
+        temp_gravity = adjustDoubleParam(temp_gravity, distance, 2.0, 1000.0, 100.0);
+//        temp_gravity = getGravity() + distance;
+//        if (temp_gravity > 1000.0){
+//            temp_gravity = temp_gravity - 900.0;
+//        }
         setGravity(temp_gravity);
 
-        double temp_attractionStrength;
-        temp_attractionStrength = getAttractionStrength() + distance * 0.05;
-        if (temp_attractionStrength > 30.0){
-            temp_attractionStrength = temp_attractionStrength - 30.0;
-        }
+        double temp_attractionStrength = getAttractionStrength();
+        temp_attractionStrength = adjustDoubleParam(temp_attractionStrength, distance, 0.1, 30.0, 0.0);
+//        temp_attractionStrength = getAttractionStrength() + distance * 0.05;
+//        if (temp_attractionStrength > 30.0){
+//            temp_attractionStrength = temp_attractionStrength - 30.0;
+//        }
         setAttractionStrength(temp_attractionStrength);
 
-        double temp_cooling;
-        temp_cooling = getCooling() + distance * 0.05;
-        if (temp_cooling > 10.0){
-            temp_cooling = temp_cooling - 9.0;
-        }
+        double temp_cooling = getCooling();
+        temp_cooling = adjustDoubleParam(temp_cooling, distance, 0.1, 10.0, 1.0);
+//        temp_cooling = getCooling() + distance * 0.05;
+//        if (temp_cooling > 10.0){
+//            temp_cooling = temp_cooling - 9.0;
+//        }
         setCooling(temp_cooling);
 
-        double temp_freezeStrength;
-        temp_freezeStrength = getFreezeStrength() + distance * 0.05;
-        if (temp_freezeStrength > 10.0){
-            temp_freezeStrength = temp_freezeStrength - 9.0;
-        }
+        double temp_freezeStrength = getFreezeStrength();
+        temp_freezeStrength = adjustDoubleParam(temp_freezeStrength, distance, 0.1, 10.0, 1.0);
+//        temp_freezeStrength = getFreezeStrength() + distance * 0.05;
+//        if (temp_freezeStrength > 10.0){
+//            temp_freezeStrength = temp_freezeStrength - 9.0;
+//        }
         setFreezeStrength(temp_freezeStrength);
 
-        double temp_repulsionStrength;
-        temp_repulsionStrength = getRepulsionStrength() + distance;
-        if (temp_repulsionStrength > 1000.0){
-            temp_repulsionStrength = temp_repulsionStrength - 900.0;
-        }
+        double temp_repulsionStrength = getRepulsionStrength();
+        temp_repulsionStrength = adjustDoubleParam(temp_repulsionStrength, distance, 1.0, 1000.0, 100.0);
+//        temp_repulsionStrength = getRepulsionStrength() + distance;
+//        if (temp_repulsionStrength > 1000.0){
+//            temp_repulsionStrength = temp_repulsionStrength - 900.0;
+//        }
         setRepulsionStrength(temp_repulsionStrength);
     }
 

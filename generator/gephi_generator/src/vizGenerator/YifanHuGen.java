@@ -63,23 +63,25 @@ public class YifanHuGen extends Generation {
         this.setAdaptiveCooling(rd.nextBoolean());
 
         this.setOptimalDistance(10.0f + rd.nextFloat() * 90);
-        this.setRelativeStrength(0.2f + rd.nextFloat() * 0.78f);
+        this.setRelativeStrength(0.1f + rd.nextFloat() * 0.88f);
     }
 
     @Override
     public void adjustSettingInNeighborhood(int distance){
-        Float temp_optimalDistance;
-        temp_optimalDistance = getOptimalDistance() + distance * 0.05f;
-        if (temp_optimalDistance > 100.0f){
-            temp_optimalDistance = temp_optimalDistance - 90.0f;
-        }
+        Float temp_optimalDistance = getOptimalDistance();
+        temp_optimalDistance = adjustFloatParam(temp_optimalDistance, distance, 0.1f, 100.0f, 10.0f);
+//        temp_optimalDistance = getOptimalDistance() + distance * 0.05f;
+//        if (temp_optimalDistance > 100.0f){
+//            temp_optimalDistance = temp_optimalDistance - 90.0f;
+//        }
         setOptimalDistance(temp_optimalDistance);
 
-        Float temp_relativeStrength;
-        temp_relativeStrength = getRelativeStrength() + distance * 0.001f;
-        if (temp_relativeStrength > 0.98f){
-            temp_relativeStrength = temp_relativeStrength - 0.78f;
-        }
+        Float temp_relativeStrength = getRelativeStrength();
+        temp_relativeStrength = adjustFloatParam(temp_relativeStrength, distance, 0.002f, 0.98f, 0.1f);
+//        temp_relativeStrength = getRelativeStrength() + distance * 0.001f;
+//        if (temp_relativeStrength > 0.98f){
+//            temp_relativeStrength = temp_relativeStrength - 0.78f;
+//        }
         setRelativeStrength(temp_relativeStrength);
     }
 

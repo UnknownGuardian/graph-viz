@@ -1,9 +1,9 @@
 {
   "dissuade_hubs": true,
   "linlog_mode": false,
-  "edge_weight_influence": 0.24,
-  "scaling": 10.399999999999999,
+  "edge_weight_influence": 0.8156513666486569,
+  "scaling": 20.35708515270774,
   "stronger_gravity": false,
-  "gravity": 17.4,
+  "gravity": 12.294704366837587,
   "approximate_repulsion": false
 }

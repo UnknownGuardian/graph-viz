@@ -42,16 +42,13 @@ public class FruchtermanGen extends Generation {
     @Override
     public void randomizeLayoutSettings(){
         Random rd = new Random();
-        this.setGravity(rd.nextDouble() * 100);
+        this.setGravity(rd.nextDouble() * 300);
     }
 
     @Override
     public void adjustSettingInNeighborhood(int distance){
-        double temp_gravity;
-        temp_gravity = getGravity() + distance * 0.05;
-        if (temp_gravity > 300.0){
-            temp_gravity = temp_gravity - 300.0;
-        }
+        double temp_gravity = getGravity();
+        temp_gravity = adjustDoubleParam(temp_gravity, distance, 0.1, 300.0, 0.0);
         setGravity(temp_gravity);
     }
 

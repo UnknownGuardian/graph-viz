@@ -26,7 +26,7 @@ public class Main {
                     true,
                     false,
                     true,
-                    0,
+                    0.0,
                     8.0,
                     false,
                     15.0,
@@ -39,7 +39,7 @@ public class Main {
                     graphToImport,
                     outputDir + "/fa",
                     true,
-                    75.0,
+                    150.0,
                     true,
                     10.0,
                     5.0,
@@ -47,7 +47,7 @@ public class Main {
                     5.0,
                     10.0,
                     0.1,
-                    50.0,
+                    200.0,
                     1.0,
                     0.1));
         }

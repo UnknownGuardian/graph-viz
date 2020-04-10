@@ -95,26 +95,24 @@ public class ForceAtlas2Gen extends Generation{
 
     @Override
     public void adjustSettingInNeighborhood(int distance){
-        double temp_edge_weight_influence;
-
-        temp_edge_weight_influence = getEdge_weight_influence() + distance * 0.01;
-        if (temp_edge_weight_influence > 1.0) {
-            temp_edge_weight_influence = temp_edge_weight_influence - 1.0;
-        }
+        double temp_edge_weight_influence = getEdge_weight_influence();
+        temp_edge_weight_influence = adjustDoubleParam(temp_edge_weight_influence, distance, 0.02, 1.0, 0.0);
         setEdge_weight_influence(temp_edge_weight_influence);
 
-        double temp_scaling;
-        temp_scaling = getScaling() + distance * 0.1;
-        if (temp_scaling > 30.0) {
-            temp_scaling = temp_scaling - 29.0;
-        }
+        double temp_scaling = getScaling();
+        temp_scaling = adjustDoubleParam(temp_scaling, distance, 0.2, 30.0, 1.0);
+//        temp_scaling = getScaling() + distance * 0.1;
+//        if (temp_scaling > 30.0) {
+//            temp_scaling = temp_scaling - 29.0;
+//        }
         setScaling(temp_scaling);
 
-        double temp_gravity;
-        temp_gravity = getGravity() + distance * 0.1;
-        if (temp_gravity > 30.0) {
-            temp_gravity = temp_gravity - 29.0;
-        }
+        double temp_gravity = getGravity();
+        temp_gravity = adjustDoubleParam(temp_gravity, distance, 0.2, 30.0, 1.0);
+//        temp_gravity = getGravity() + distance * 0.1;
+//        if (temp_gravity > 30.0) {
+//            temp_gravity = temp_gravity - 29.0;
+//        }
         setGravity(temp_gravity);
 
     }
