@@ -5,7 +5,7 @@ import * as fs from "fs";
 const exec = require("child_process").execSync;
 import { emptyDirSync } from "fs-extra";
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 async function run() {
   const program = new commander.Command();
   program
@@ -20,6 +20,7 @@ async function run() {
   const inputGraph =
     program.graph || path.join(generator, "input", "graph_43_nodes.gexf");
   const generationOutputDir = path.join(generator, "output");
+  const generationConfigDir = path.join(generator, "gephi_generator", "config");
 
   if (!fs.existsSync(inputGraph)) {
     throw new Error(`No such graph bro exists at ${inputGraph}`);
@@ -34,7 +35,7 @@ async function run() {
     "gephi_generator_jar",
     "gephi_generator.jar"
   );
-  const gephiCommand = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir}`;
+  const gephiCommand = `java -jar ${generatorProgram} ${inputGraph} ${generationOutputDir} ${generationConfigDir}`;
   console.log("\nGenerator".green.bold);
   console.log("\t Reading graph: \t".yellow, inputGraph);
   console.log("\t Writing to: \t\t".yellow, generationOutputDir);
@@ -46,7 +47,7 @@ async function run() {
   console.log("\t Converting .gexf to .json".yellow);
   const files = fs
     .readdirSync(generationOutputDir)
-    .filter(f => f.endsWith(".gexf"));
+    .filter((f) => f.endsWith(".gexf"));
   console.log("\t Running commands:".yellow);
   const gexfToJSONProgram = path.join(
     generator,
@@ -54,7 +55,7 @@ async function run() {
     "converter",
     "gexf_to_json.js"
   );
-  files.forEach(file => {
+  files.forEach((file) => {
     const filePath = path.join(generationOutputDir, file);
     const outputFilePath = filePath.replace(".gexf", ".json");
     const convertCommand = `node ${gexfToJSONProgram} ${filePath} > ${outputFilePath}`;

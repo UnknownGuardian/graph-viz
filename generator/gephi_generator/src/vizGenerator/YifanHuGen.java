@@ -1,9 +1,7 @@
 package vizGenerator;
 
 import org.gephi.layout.plugin.force.StepDisplacement;
-import org.gephi.layout.plugin.force.yifanHu.YifanHu;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
-import org.gephi.layout.spi.Layout;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -86,8 +84,8 @@ public class YifanHuGen extends Generation {
     }
 
     @Override
-    public void readConfig() {
-        String directory = "config/yf.txt";
+    public void readConfig(String configDir) {
+        String directory = configDir + "/yf.txt";
         Path configPath = Paths.get(directory);
         String config = null;
 
@@ -106,11 +104,11 @@ public class YifanHuGen extends Generation {
     }
 
     @Override
-    public void writeConfig() {
+    public void writeConfig(String configDir) {
         YifanHuConfig yifanHuConfig = new YifanHuConfig(this);
         String config = JsonEncoder.encode(yifanHuConfig);
 
-        String directory = "config/yf.txt";
+        String directory = configDir + "/yf.txt";
         Path configPath = Paths.get(directory);
 
         try {

@@ -104,8 +104,8 @@ public class OpenOrdGen extends Generation {
     }
 
     @Override
-    public void readConfig() {
-        String directory = "config/oo.txt";
+    public void readConfig(String configDir) {
+        String directory = configDir + "/oo.txt";
         Path configPath = Paths.get(directory);
         String config = null;
 
@@ -128,12 +128,12 @@ public class OpenOrdGen extends Generation {
     }
 
     @Override
-    public void writeConfig() {
+    public void writeConfig(String configDir) {
 
         OpenOrdConfig openOrdConfig = new OpenOrdConfig(this);
         String config = JsonEncoder.encode(openOrdConfig);
 
-        String directory = "config/oo.txt";
+        String directory = configDir + "/oo.txt";
         Path configPath = Paths.get(directory);
 
         try {

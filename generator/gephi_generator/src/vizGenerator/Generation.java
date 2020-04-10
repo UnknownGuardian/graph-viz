@@ -11,8 +11,6 @@ import org.gephi.io.importer.api.Container;
 import org.gephi.io.importer.api.EdgeDirectionDefault;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
-import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
-import org.gephi.layout.spi.Layout;
 import org.gephi.preview.api.PreviewController;
 import org.gephi.preview.api.PreviewModel;
 import org.gephi.preview.api.PreviewProperty;
@@ -181,11 +179,11 @@ public class Generation {
 
     }
 
-    public void readConfig(){
+    public void readConfig(String configDir){
 
     }
 
-    public void writeConfig(){
+    public void writeConfig(String configDir){
 
     }
 

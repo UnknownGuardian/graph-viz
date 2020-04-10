@@ -1,27 +1,7 @@
 package vizGenerator;
 
-import org.gephi.graph.api.GraphController;
-import org.gephi.graph.api.GraphModel;
-import org.gephi.graph.api.Node;
-import org.gephi.graph.api.UndirectedGraph;
-import org.gephi.io.exporter.api.ExportController;
-import org.gephi.io.exporter.preview.PNGExporter;
-import org.gephi.io.exporter.spi.GraphExporter;
-import org.gephi.io.importer.api.Container;
-import org.gephi.io.importer.api.EdgeDirectionDefault;
-import org.gephi.io.importer.api.ImportController;
-import org.gephi.io.processor.plugin.DefaultProcessor;
-import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
 import org.gephi.layout.plugin.fruchterman.FruchtermanReingold;
-import org.gephi.preview.api.PreviewController;
-import org.gephi.preview.api.PreviewModel;
-import org.gephi.preview.api.PreviewProperty;
-import org.gephi.project.api.ProjectController;
-import org.gephi.project.api.Workspace;
-import org.gephi.statistics.plugin.GraphDistance;
-import org.openide.util.Lookup;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -76,8 +56,8 @@ public class FruchtermanGen extends Generation {
     }
 
     @Override
-    public void readConfig() {
-        String directory = "config/ft.txt";
+    public void readConfig(String configDir) {
+        String directory = configDir + "/ft.txt";
         Path configPath = Paths.get(directory);
         String config = null;
 
@@ -94,11 +74,11 @@ public class FruchtermanGen extends Generation {
     }
 
     @Override
-    public void writeConfig() {
+    public void writeConfig(String configDir) {
         FruchtermanConfig fruchtermanConfig = new FruchtermanConfig(this);
         String config = JsonEncoder.encode(fruchtermanConfig);
 
-        String directory = "config/ft.txt";
+        String directory = configDir + "/ft.txt";
         Path configPath = Paths.get(directory);
 
         try {

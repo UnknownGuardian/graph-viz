@@ -1,22 +1,20 @@
 package vizGenerator;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         String graphToImport = args[0];
         String outputDir = args[1];
-        String algorithm = args.length > 2 ? args[2] : "all";
-        int mode = args.length == 4 ? Integer.parseInt(args[3]) : 0;
+        String configDir = args[2];
+        String algorithm = args.length > 3 ? args[3] : "all";
+        int mode = args.length > 4? Integer.parseInt(args[4]) : 0;
 
         System.out.println("Reading from " + graphToImport);
         System.out.println("Writing to " + outputDir);
+        System.out.println("Configs from" + configDir);
         System.out.println("using algorithm: " +  algorithm);
         System.out.println("mode is " + mode);
 
@@ -88,7 +86,7 @@ public class Main {
 
             g.buildEnv();
 
-            g.readConfig();
+            g.readConfig(configDir);
 
             if (mode < 0) {
                 g.randomizeLayoutSettings();
@@ -96,7 +94,7 @@ public class Main {
                 g.adjustSettingInNeighborhood(mode);
             }
 
-            g.writeConfig();
+            g.writeConfig(configDir);
 
             g.generateViz();
 
