@@ -6,7 +6,8 @@ import {
   UpwardFlow,
   EdgeCrossings,
   MinimumEdgeLength,
-  EdgeLengthVariance
+  EdgeLengthVariance,
+  EdgeLengthAverage,
 } from "../metrics";
 import { EvaluationFunction, Evaluation } from ".";
 
@@ -15,7 +16,7 @@ export const edgeCrossings: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Edge Crossings",
     score: 1 - crossings,
-    weight: 0.29
+    weight: 0.29,
   };
 };
 
@@ -27,7 +28,22 @@ export const minEdgeLength: EvaluationFunction = (g: Graph): Evaluation => {
     name: "Minimum Edge Length",
     score,
     weight: 0.1,
-    value
+    value,
+  };
+};
+export const averageEdgeLength: EvaluationFunction = (g: Graph): Evaluation => {
+  // https://www.analyzemath.com/parabola/three_points_para_calc.html
+  // want around 100
+  const threshold = 10;
+  const value = new EdgeLengthAverage(g).calculate();
+  const func = Math.min(1, 0.0001 * value ** 2 - 0.02 * value + 1);
+  const score = 1 - func;
+  console.log("AVERAGE EDGE LENGTH", value, score);
+  return {
+    name: "Average Edge Length",
+    score,
+    weight: 0.19,
+    value,
   };
 };
 export const edgeLengthVariance: EvaluationFunction = (
@@ -39,7 +55,7 @@ export const edgeLengthVariance: EvaluationFunction = (
     name: "Edge Length Variance",
     score,
     weight: 0.2,
-    value
+    value,
   };
 };
 export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
@@ -47,7 +63,7 @@ export const minimumAngle: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Minimum Angle",
     score: 1 - minAngle,
-    weight: 0.1
+    weight: 0.1,
   };
 };
 
@@ -56,7 +72,7 @@ export const edgeOrth: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Edge Orthagonality",
     score: orth,
-    weight: 0.1
+    weight: 0.1,
   };
 };
 
@@ -65,7 +81,7 @@ export const nodeOrth: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Node Orthagonality",
     score: orth,
-    weight: 0.2
+    weight: 0.01,
   };
 };
 
@@ -74,7 +90,7 @@ export const upwardFlow: EvaluationFunction = (g: Graph): Evaluation => {
   return {
     name: "Upward Flow",
     score: flow,
-    weight: 0.01
+    weight: 0.01,
   };
 };
 
