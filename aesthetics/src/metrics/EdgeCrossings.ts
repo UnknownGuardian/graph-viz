@@ -1,5 +1,6 @@
 import { Metric } from "./Metric";
 import "colors";
+import { Graph, Node } from "..";
 
 export class EdgeCrossings extends Metric {
   calculate(): number {
@@ -28,10 +29,10 @@ export class EdgeCrossings extends Metric {
         total++;
       }
     }
-    console.log(
+    /*console.log(
       `EDGE CROSSINGS IS ${crossings} / ${total} OR ${total2} WHICH IS ${crossings} / ${total} OR ${crossings} / ${total2}`
-    );
-    return crossings / total;
+    );*/
+    return crossings / total2;
   }
 
   // returns true iff the line from (a,b)->(c,d) intersects with (p,q)->(r,s)
@@ -57,45 +58,35 @@ export class EdgeCrossings extends Metric {
   }
 
   getMaxCrossingApprox() {
-    const edges = this.makeCompleGraph();
-    const points = this.createRadialVizualization();
-    const radialCrossings = this.getRadialCrossings(edges, points);
-    return radialCrossings;
+    this.createRadialVizualization();
+    return this.getRadialCrossings();
   }
 
-  makeCompleGraph(): SEdge[][] {
-    const edges: SEdge[][] = [];
-    this.graph.nodes.forEach((n) => {
-      const arr: SEdge[] = [];
-      this.graph.nodes.forEach((n2) => arr.push({ index: 0, weight: 1 }));
-      edges.push(arr);
-    });
-    return edges;
-  }
+  createRadialVizualization(): void {
+    // clone, redistribute points
+    const nodes = this.graph.nodes as any[];
 
-  createRadialVizualization(): CGPoint[] {
-    const nodes = this.graph.nodes;
-    const points: CGPoint[] = [];
     let degree = 360 / nodes.length;
     let r = 100;
     let offset = 0;
 
+    let index = 0;
     for (let i = 0; i <= 360; i += degree) {
       let radians = ((i + offset) * Math.PI) / 180;
       let x = r * Math.cos(radians);
       let y = r * Math.sin(radians);
-      points.push({ x, y });
+      nodes[index]["x2"] = x;
+      nodes[index]["y2"] = y;
+      index++;
     }
-
-    return points;
   }
 
-  getRadialCrossings(edges: SEdge[][], points: CGPoint[]): number {
+  getRadialCrossings(): number {
     let crossings = 0;
-    for (let x = 0; x < edges.length - 1; x++) {
+    for (let x = 0; x < this.graph.edges.length - 1; x++) {
       const e = this.graph.edges[x];
-      for (let i = x + 1; i < edges.length; i++) {
-        const e2 = edges[i];
+      for (let i = x + 1; i < this.graph.edges.length; i++) {
+        const e2 = this.graph.edges[i];
 
         const sharesNode =
           e.node1 == e2.node1 ||
@@ -104,14 +95,14 @@ export class EdgeCrossings extends Metric {
           e.node2 == e2.node2;
 
         const crosses: boolean = this.intersects(
-          e.node1.x,
-          e.node1.y,
-          e.node2.x,
-          e.node2.y,
-          e2.node1.x,
-          e2.node1.y,
-          e2.node2.x,
-          e2.node2.y
+          (e.node1 as any)["x2"],
+          (e.node1 as any)["y2"],
+          (e.node2 as any)["x2"],
+          (e.node2 as any)["y2"],
+          (e2.node1 as any)["x2"],
+          (e2.node1 as any)["y2"],
+          (e2.node2 as any)["x2"],
+          (e2.node2 as any)["y2"]
         );
 
         if (crosses && !sharesNode) {

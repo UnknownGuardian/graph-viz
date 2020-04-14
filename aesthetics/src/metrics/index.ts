@@ -8,3 +8,4 @@ export * from "./NodeOrthagonality";
 export * from "./UpwardFlow";
 export * from "./MinimumEdgeLength";
 export * from "./EdgeLengthVariance";
+export * from "./EdgeLengthAverage";
