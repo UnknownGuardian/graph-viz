@@ -192,10 +192,11 @@ public class Generation {
         double tempParam;
         double amount = distance * scalar;
         double halfAmount = amount * 0.5;
-
+        int cnt = 0;
         do {
             tempParam = param + Math.random() * amount - halfAmount;
-        } while((tempParam > max) || (tempParam < min));
+            cnt++;
+        } while(((tempParam > max) || (tempParam < min)) && cnt < 50);
 
         return tempParam;
     }
@@ -204,14 +205,15 @@ public class Generation {
         Integer tempParam;
         Integer amount = distance * scalar;
         Random random = new Random();
-
+        int cnt = 0;
         do {
             if (random.nextBoolean()) {
                 tempParam = param + amount;
             }else {
                 tempParam = param - amount;
             }
-        } while((tempParam > max) || (tempParam < min));
+            cnt++;
+        } while(((tempParam > max) || (tempParam < min)) && cnt < 50);
 
         return tempParam;
     }
@@ -221,10 +223,11 @@ public class Generation {
         Float amount = distance * scalar;
         Float halfAmount = amount * 0.5f;
         Random random = new Random();
-
+        int cnt = 0;
         do {
             tempParam = param + random.nextFloat() * amount - halfAmount;
-        } while((tempParam > max) || (tempParam < min));
+            cnt++;
+        } while(((tempParam > max) || (tempParam < min)) && cnt < 50);
 
         return tempParam;
     }
